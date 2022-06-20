@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/ic_icons8_clock_96"
+        android:title="Log" />
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_svgrepo_com"
+        android:checked="true"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/navigation_chat"
+        android:icon="@drawable/ic_icons8_settings"
+        android:title="Setting" />
+
+
+
+</menu>

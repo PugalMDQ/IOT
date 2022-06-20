@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundLightBlue"
+    tools:context=".LoginActivity">
+
+    <RelativeLayout
+        android:id="@+id/rlEmailAddress"
+        android:layout_width="600dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/rectangle_edittext"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivCircleEmailAddress"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/circle"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+        <ImageView
+            android:id="@+id/ivEmailAddress"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="26dp"
+            android:background="@drawable/ic_baseline_email_24"
+            android:layout_width="28dp"
+            android:layout_height="28dp"/>
+
+        <EditText
+            android:id="@+id/etEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_toRightOf="@+id/ivCircleEmailAddress"
+            android:background="@null"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Enter email address"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/colorTextColor"
+            android:textColorHint="@color/colorGrey"
+            android:textSize="@dimen/twenty" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rlPassword"
+        android:layout_width="600dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rectangle_edittext"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rlEmailAddress">
+
+        <ImageView
+            android:id="@+id/ivCirclePassword"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/circle"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+        <ImageView
+            android:id="@+id/ivPassword"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="26dp"
+            android:background="@drawable/ic_baseline_lock_24"
+            android:layout_width="28dp"
+            android:layout_height="28dp"/>
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_toRightOf="@+id/ivCirclePassword"
+            android:background="@null"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Enter password"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:maxLength="15"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/colorTextColor"
+            android:textColorHint="@color/colorGrey"
+            android:textSize="@dimen/twenty" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnLogin"
+        app:layout_constraintTop_toBottomOf="@+id/rlPassword"
+        android:layout_width="600dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/poppins_regular"
+        android:background="@drawable/button"
+        android:text="@string/login"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/twenty_four"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvForgotPassword"
+        android:text="@string/forgot_password"
+        android:layout_marginTop="20dp"
+        android:textSize="@dimen/twenty_four"
+        android:textColor="@color/colorTextColor"
+        android:fontFamily="@font/poppins_regular"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="500dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/marine_wave_background"
+        >
+
+        <ImageView
+            android:layout_centerInParent="true"
+            android:id="@+id/ivMarineWave"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/marine_text"/>
+
+        <TextView
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="12dp"
+            android:text="V0.0.1"
+            android:textColor="@color/colorWhite"
+            android:layout_marginStart="20dp"
+            android:textSize="@dimen/twenty_four"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:paddingEnd="20dp"
+            android:layout_marginBottom="12dp"
+            android:text="@string/marine"
+            android:textSize="@dimen/twenty_four"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/colorWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

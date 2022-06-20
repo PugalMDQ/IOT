@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/log3">
+
+    <fragment
+        android:id="@+id/log3"
+        android:name="com.mdq.fragment.log"
+        android:label="fragment_log"
+        tools:layout="@layout/fragment_log" />
+    <fragment
+        android:id="@+id/home3"
+        android:name="com.mdq.fragment.home"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/setting"
+        android:name="com.mdq.fragment.setting"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
+</navigation>

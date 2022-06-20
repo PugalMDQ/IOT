@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/login_ac_bg"
+        tools:context="com.mdq.activities.LockerPinChange">
+
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="26dp"
+            android:background="@drawable/back_arror_bg"
+            android:padding="15dp"
+            android:src="@drawable/ic_left_arrow_back"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/OTPverify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Locker PIN Configure"
+            android:textColor="@color/black"
+            android:textSize="22dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/back" />
+
+        <TextView
+            android:id="@+id/TextEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="200dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="New PIN"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="18sp"
+            android:background="@drawable/email_back"
+            android:hint="Enter New PIN"
+            android:fontFamily="@font/roboto_bold"
+            android:textColorHint="@color/grey"
+            android:padding="19dp"
+            android:maxLength="10"
+            android:inputType="number"
+            android:textColor="#1C1C1C"
+            android:textSize="12dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TextEmail" />
+
+        <TextView
+            android:id="@+id/TextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="PIN"
+            android:visibility="invisible"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="18sp"
+            android:background="@drawable/email_back"
+            android:drawablePadding="5dp"
+            android:visibility="invisible"
+            android:hint="Enter Pin"
+            android:textColorHint="@color/grey"
+            android:inputType="textPassword"
+            android:padding="19dp"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="#1C1C1C"
+            android:textSize="12dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TextPassword" />
+
+        <TextView
+            android:id="@+id/forgot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="18sp"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="end"
+            android:padding="4dp"
+            android:visibility="invisible"
+            android:text="Forgot password"
+            android:textColor="#8D8E8F"
+            android:textSize="14sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/password" />
+
+
+        <TextView
+            android:id="@+id/Update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="25dp"
+            android:elevation="20dp"
+            android:layout_marginRight="18sp"
+            android:background="@drawable/ripple_login_bg"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="Update"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginBottom="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/forgot" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
