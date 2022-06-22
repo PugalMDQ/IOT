@@ -85,6 +85,7 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
     TextView textView;
     Dialog locationDialog;
     Dialog dialogBluetooth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

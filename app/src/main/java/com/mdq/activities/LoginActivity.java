@@ -223,6 +223,7 @@ public class LoginActivity extends AppCompatActivity implements VerificationKeyR
             }
 
             getPreferenceManager().setPrefMobile(getActivityLoginBinding.email.getText().toString().trim());
+            getPreferenceManager().setPrefUsername(generateLoginResponseModel.getId().get(0).getUsername().trim());
 
             if (generateLoginResponseModel.getId().get(0).getMacid_status().trim().equals("1")) {
                 getPreferenceManager().setPrefUinNum(generateLoginResponseModel.getId().get(0).getMac_id());

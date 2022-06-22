@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/login_ac_bg"
+        android:background="@color/white"
         tools:context="com.mdq.activities.Wifi_configuration">
 
 
@@ -38,6 +38,21 @@
             android:textSize="22dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/back" />
+
+        <TextView
+            android:id="@+id/subText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Configure the wifi ssid and password to ensure your VSafe is connected to the cloud and your Mobile."
+            android:textColor="@color/grey1"
+            android:textSize="15dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/OTPverify" />
 
         <TextView
             android:id="@+id/TextEmail"
@@ -134,7 +149,7 @@
             android:fontFamily="@font/roboto_bold"
             android:gravity="center"
             android:padding="15dp"
-            android:text="Set Wifi"
+            android:text="Confirm"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:layout_marginBottom="60dp"

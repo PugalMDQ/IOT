@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.mdq.marinetechapp.R;
 import com.mdq.marinetechapp.databinding.ActivityWifiConfigurationBinding;
@@ -16,6 +17,7 @@ public class Wifi_configuration extends AppCompatActivity {
 
     private BleUtil bleUtil;
 
+    String from;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +27,13 @@ public class Wifi_configuration extends AppCompatActivity {
 
         //onclick
         setOnClick();
+        try {
+
+            Intent intent = getIntent();
+            from =intent.getStringExtra("from");
+        }catch (Exception e){
+
+        }
 
     }
 
@@ -35,6 +44,12 @@ public class Wifi_configuration extends AppCompatActivity {
 
                 if(activityWifiConfigurationBinding.WIFINAME.getText()!=null && activityWifiConfigurationBinding.password.getText()!=null) {
                     bleUtil.wifiSetup(activityWifiConfigurationBinding.WIFINAME.getText().toString(), activityWifiConfigurationBinding.password.getText().toString());
+
+                    if(from.equals("signUPFlow")) {
+                        startActivity(new Intent(Wifi_configuration.this, EmergencyNumberActivity.class));
+                    }
+                }else{
+                    Toast.makeText(Wifi_configuration.this, "Enter the fields", Toast.LENGTH_SHORT).show();
                 }
 
             }

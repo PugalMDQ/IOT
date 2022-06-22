@@ -136,6 +136,11 @@ public class MobileNumActivity extends AppCompatActivity implements numberValida
                 Log.i("sim1", SIMmobileNum1);
                 Log.i("sim2", SIMmobileNum2);
             }else{
+
+                TelephonyManager telephonyManager1 = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+                String phoneNumber = telephonyManager1.getLine1Number();
+                SIMmobileNum1 = phoneNumber.trim().substring(2);
+                dialog();
                 GetNumber();
             }
         }
@@ -151,7 +156,7 @@ public class MobileNumActivity extends AppCompatActivity implements numberValida
 
         sim1.setText(" +91  "+SIMmobileNum1);
         if(SIMmobileNum2!=null) {
-            sim2.setText("+91  " + SIMmobileNum2);
+            sim2.setText("+91  "+SIMmobileNum2);
         }else{
 
         }
@@ -252,18 +257,15 @@ public class MobileNumActivity extends AppCompatActivity implements numberValida
             generateOTPRequestViewModel.generateOTPRequest();
             getPreferenceManager().setPrefMobile(activityMobileNumBinding.mobile.getText().toString().trim());
             startActivity(new Intent(MobileNumActivity.this, OTPVerification.class));
-
         } else {
             progressBar.setVisibility(View.GONE);
             textView.setText("Mobile number already exist!");
-
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     dialog_Spinner.dismiss();
                 }
             }, 2000);
-
         }
     }
 
@@ -316,10 +318,10 @@ public class MobileNumActivity extends AppCompatActivity implements numberValida
                     return;
                 }
 
-                TelephonyManager telephonyManager1 = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
-                String phoneNumber = telephonyManager1.getLine1Number();
-                SIMmobileNum1 = phoneNumber.trim().substring(2);
-                dialog();
+//                TelephonyManager telephonyManager1 = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+//                String phoneNumber = telephonyManager1.getLine1Number();
+//                SIMmobileNum1 = phoneNumber.trim().substring(2);
+//                dialog();
                 secondNumber();
 
                 break;

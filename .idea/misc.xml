@@ -6,6 +6,8 @@
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable-v24/back_arror_bg.xml" value="0.1205" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable-v24/box.xml" value="0.1" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable-v24/cancel_btg.xml" value="0.1" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable-v24/continue_btg.xml" value="0.1" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable-v24/email_back.xml" value="0.1" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable-v24/ic_baseline_phonelink_setup_24.xml" value="0.1" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable-v24/ic_bell_icon.xml" value="0.1" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable-v24/ic_eye.xml" value="0.1205" />
@@ -13,6 +15,8 @@
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable-v24/login_ac_bg.xml" value="0.1" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable-v24/login_bt_bg.xml" value="0.1" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable-v24/rectangle_edittext_red.xml" value="0.1" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable-v24/ripple_cancel.xml" value="0.1" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable-v24/ripple_continue.xml" value="0.1" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable-v24/ripple_login_bg.xml" value="0.1" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable/baseline_check_circle_green_24.xml" value="0.1" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable/bg_border_only.xml" value="0.1" />
@@ -27,6 +31,7 @@
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable/circle.xml" value="0.1" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable/custom_switch_key.xml" value="0.1" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable/custom_switch_track.xml" value="0.1" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable/green_round_bg.xml" value="0.1" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable/ic_baseline_cancel_24.xml" value="0.1" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.1" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable/ic_baseline_keyboard_double_arrow_right_24.xml" value="0.1435" />
@@ -50,6 +55,7 @@
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable/progress.xml" value="0.1" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable/rectangle_edittext.xml" value="0.1" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable/ripple_for_settings_menu.xml" value="0.109" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable/round_bg.xml" value="0.1" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable/round_blue_button.xml" value="0.1" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable/round_circle_border.xml" value="0.1" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/drawable/setting.xml" value="0.1025" />
@@ -63,27 +69,28 @@
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout-land/dialog_for_number.xml" value="0.3108108108108108" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_bio_metrix_selection.xml" value="0.1796875" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_ble.xml" value="0.1796875" />
-        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_contact_us.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_contact_us.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_device_manger.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_emergency_number.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_fingerprint_authentication.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_fingerprintenable.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_history.xml" value="0.22" />
-        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_home.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_home.xml" value="0.12" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_home_page.xml" value="0.13333333333333333" />
-        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_login.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_login.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_login_marine.xml" value="0.14749893116716545" />
-        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_loker_pin_change.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_loker_pin_change.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_main.xml" value="0.1796875" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_mechanical.xml" value="0.13333333333333333" />
-        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_mechanical_key.xml" value="0.16666666666666666" />
-        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_mobile_num.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_mechanical_key.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_mobile_num.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_mobile_register.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_notificationactivity.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_otpverification.xml" value="0.1796875" />
-        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_our_products.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_our_products.xml" value="0.13333333333333333" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_profile.xml" value="0.13333333333333333" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_profile2.xml" value="0.14749893116716545" />
-        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_profile_setup.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_profile_setup.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_qr_code_scanner.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_register.xml" value="0.1796875" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_safety_selection.xml" value="0.13333333333333333" />
@@ -92,10 +99,12 @@
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_sos_pin_change.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_splash.xml" value="0.1796875" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_splash_screen.xml" value="0.16666666666666666" />
-        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_term_condition.xml" value="0.25" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_term_condition.xml" value="0.12" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_warrenty.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_welcome.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_wellcomescreen.xml" value="0.1796875" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/activity_wifi_configuration.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/custom_dialog_set_serial_number.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/custom_dialog_wifi_ssid.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/device_name_list.xml" value="0.22" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/dialog_biometrix_check.xml" value="0.14666666666666667" />
@@ -105,9 +114,9 @@
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/dialog_for_secure_mode.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/dialog_spinner.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/dialog_toast.xml" value="0.22" />
-        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/fragment_home.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/fragment_home.xml" value="0.10666666666666667" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/fragment_log.xml" value="0.13333333333333333" />
-        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/fragment_setting.xml" value="0.22" />
+        <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/fragment_setting.xml" value="0.13333333333333333" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/item_for_history.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/item_for_notification.xml" value="0.22" />
         <entry key="..\:/Users/sanjai/AndroidStudioProjects/V-Safe_V1.0/app/src/main/res/layout/toast.xml" value="0.14749893116716545" />

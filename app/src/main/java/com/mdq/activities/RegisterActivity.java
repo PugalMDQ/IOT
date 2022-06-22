@@ -190,6 +190,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterRespo
     public void generateRegisterProcessed(GenerateRegisterResponseModel generateRegisterResponseModel) {
         Toast.makeText(getApplicationContext(), ""+generateRegisterResponseModel.getMessage(), Toast.LENGTH_SHORT).show();
         if(generateRegisterResponseModel.getMessage().equals("Registered successfully")){
+            getPreferenceManager().setPrefUsername(activityRegisterBinding.username.getText().toString().trim());
             startActivity(new Intent(getApplicationContext(),MechanicalActivity.class));
             finishAffinity();
         }

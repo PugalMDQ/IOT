@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context="com.mdq.activities.Mechanical_key">
+        tools:context="com.mdq.activities.EmergencyNumberActivity">
+
 
         <ImageView
             android:id="@+id/back"
@@ -32,7 +33,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/roboto_bold"
-            android:text="Mechanical Key"
+            android:text="Emergency Number Setup"
             android:textColor="@color/black"
             android:textSize="22dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +46,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="200dp"
             android:fontFamily="@font/roboto_bold"
-            android:text="Mechanical Key"
+            android:text="Emergency Number"
             android:textColor="@color/black"
             android:textSize="16dp"
             android:textStyle="bold"
@@ -53,103 +54,58 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-
-            android:id="@+id/email"
+            android:id="@+id/number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="18sp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="18sp"
             android:background="@drawable/email_back"
+            android:hint="Enter Number"
             android:fontFamily="@font/roboto_bold"
-            android:hint="Enter mobile"
-            android:inputType="number"
-            android:maxLength="10"
+            android:textColorHint="@color/grey"
             android:padding="19dp"
+            android:maxLength="10"
             android:textColor="#1C1C1C"
-            android:textColorHint="@color/grey"
-            android:textSize="12sp"
-            android:text="7558"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/TextEmail" />
-
-
-        <TextView
-            android:id="@+id/TextPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Password"
-            android:visibility="invisible"
-            android:textColor="@color/black"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email" />
-
-
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="18sp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="18sp"
-            android:visibility="invisible"
-            android:background="@drawable/email_back"
-            android:drawableRight="@drawable/visibility_off"
-            android:drawablePadding="5dp"
-            android:fontFamily="@font/roboto_bold"
-            android:hint="Enter Password"
-            android:inputType="textPassword"
-            android:padding="15dp"
-            android:textColor="#1C1C1C"
-            android:textColorHint="@color/grey"
             android:textSize="12dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/TextPassword" />
+            app:layout_constraintTop_toBottomOf="@+id/TextEmail" />
 
         <TextView
             android:id="@+id/forgot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="18sp"
-            android:fontFamily="@font/roboto_bold"
-            android:gravity="end"
-            android:padding="4dp"
-            android:text="Forgot password"
-            android:textColor="#8D8E8F"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center"
+            android:padding="30dp"
+            android:text="All the SOS calls will be triggered to this Emergency Mobile Number"
+            android:textColor="@color/grey1"
             android:textSize="14sp"
-            android:visibility="invisible"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password" />
+            app:layout_constraintTop_toBottomOf="@+id/number" />
 
 
         <TextView
-            android:id="@+id/SET_WIFI"
+            android:id="@+id/Confirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="18dp"
             android:layout_marginTop="25dp"
-            android:layout_marginRight="18sp"
-            android:visibility="invisible"
-            android:layout_marginBottom="60dp"
-            android:background="@drawable/ripple_login_bg"
             android:elevation="20dp"
+            android:layout_marginRight="18sp"
+            android:background="@drawable/ripple_login_bg"
             android:fontFamily="@font/roboto_bold"
             android:gravity="center"
             android:padding="15dp"
-            android:text="Set Wifi"
+            android:text="Confirm"
             android:textColor="@color/white"
             android:textSize="16sp"
+            android:layout_marginBottom="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/forgot" />
-
+ />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

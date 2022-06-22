@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/login_ac_bg"
+        android:background="@color/white"
         tools:context="com.mdq.activities.activity_profile_setup">
 
         <ScrollView
@@ -92,7 +92,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
-                    android:background="@drawable/textbox">
+                    android:background="@drawable/email_back">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/lockerpin"
@@ -136,7 +136,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
-                    android:background="@drawable/textbox">
+                    android:background="@drawable/email_back">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/CLocker_pin"
@@ -160,7 +160,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Create SOS Pin"
-                    android:textColor="#257fc6"
+                    android:textColor="#05c8e5"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/confirmpin"
@@ -193,7 +193,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
-                    android:background="@drawable/textbox">
+                    android:background="@drawable/email_back">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/Sos_pin"
@@ -237,7 +237,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
-                    android:background="@drawable/textbox">
+                    android:background="@drawable/email_back">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/CSos_pin"
@@ -262,7 +262,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginLeft="16dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="24dp"
                     android:layout_marginRight="16dp"
                     android:background="@drawable/ripple_cancel"
                     android:gravity="center"

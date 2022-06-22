@@ -12,6 +12,7 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -43,10 +44,12 @@ public class home extends Fragment {
     BleUtil bleUtil;
     PreferenceManager preferenceManager;
     boolean openClose = false;
+    boolean bleCheck=true;
     Dialog locationDialog;
     Dialog dialogBluetooth;
     RequestPermission requestPermission;
-
+    boolean dialogs=true;
+    Dialog dialog;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,16 +62,23 @@ public class home extends Fragment {
 
         requestPermission = new RequestPermission(requireActivity());
         bleUtil = new BleUtil(requireContext());
-        bleUtil.pingCmd();
-
+        bleCall();
         checkLocationPermission();
         BluetoothCheck();
+        dialog = new Dialog(requireActivity(), R.style.dialog_center);
+
+        if(dialog.isShowing()){
+            dialogs=false;
+        }else{
+            dialogs=true;
+        }
+
+        fragmentHomeBinding.name.setText("Hello, "+getPreferenceManager().getPrefUsername().trim());
 
         fragmentHomeBinding.drack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Dialog dialog = new Dialog(requireActivity(), R.style.dialog_center);
                 dialog.setContentView(R.layout.dialog_for_pin);
                 dialog.setCanceledOnTouchOutside(false);
                 TextView textView = dialog.findViewById(R.id.textView24);
@@ -106,6 +116,20 @@ public class home extends Fragment {
 
         return fragmentHomeBinding.getRoot();
 
+    }
+
+    private void bleCall() {
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+                if(bleCheck) {
+                    if(dialogs) {
+                        bleUtil.pingCmd();
+//                        bleCall();
+                    }
+                }
+//            }
+//        },5000);
     }
 
     private void firstVisible() {
@@ -205,6 +229,8 @@ public class home extends Fragment {
             if (data.equals("door_closed")) {
                 if (!TextUtils.isEmpty(receivedData)) {
                     if (receivedData.substring(0, 2).equals("65")) {
+                        fragmentHomeBinding.drack.setBackground(getResources().getDrawable(R.drawable.green_round_bg));
+                        fragmentHomeBinding.statusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_lock_svgrepo_com));
                         openClose = false;
                     }
                 }
@@ -213,8 +239,7 @@ public class home extends Fragment {
             if (data.equals("door_opened")) {
                 if (!TextUtils.isEmpty(receivedData)) {
                     if (receivedData.substring(0, 2).equals("64")) {
-                        Toast.makeText(context, "Opened", Toast.LENGTH_SHORT).show();
-                        fragmentHomeBinding.drack.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                        fragmentHomeBinding.drack.setBackground(getResources().getDrawable(R.drawable.round_bg));
                         fragmentHomeBinding.statusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_unlock_padlock_svgrepo_com));
                         openClose = true;
                     }
@@ -228,7 +253,6 @@ public class home extends Fragment {
                     }
                 }
             }
-
 
             if (data.equals("ERROR")) {
                 if (!TextUtils.isEmpty(receivedData)) {
@@ -246,6 +270,7 @@ public class home extends Fragment {
         super.onDestroy();
         LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(receiver);
     }
+
     /**
      * @brief - A method to check Location permission is On/Off
      */
@@ -258,24 +283,26 @@ public class home extends Fragment {
     }
 
     private void BluetoothCheck() {
-        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if (mBluetoothAdapter == null) {
-            // Device does not support Bluetooth
+        if (bleCheck) {
+            BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+            if (mBluetoothAdapter == null) {
+                // Device does not support Bluetooth
 
-        } else {
-            if (!mBluetoothAdapter.isEnabled()) {
-                // Bluetooth is not enable :)
-                dialog_bluetooth();
-            }else{
-                dialogBluetooth.dismiss();
+            } else {
+                if (!mBluetoothAdapter.isEnabled()) {
+                    // Bluetooth is not enable :)
+                    dialog_bluetooth();
+                } else {
+                    dialogBluetooth.dismiss();
+                }
             }
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    BluetoothCheck();
+                }
+            }, 4000);
         }
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                BluetoothCheck();
-            }
-        },4000);
     }
 
     private void dialog_bluetooth() {
@@ -300,29 +327,54 @@ public class home extends Fragment {
     }
 
     private void checkGPSStatus() {
-        LocationManager locationManager = (LocationManager) requireContext().getSystemService(Context.LOCATION_SERVICE);
-
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            locationDialog.dismiss();
-        } else {
-            locationDialog.setContentView(R.layout.dialog_for_location_enable);
-            locationDialog.setCancelable(false);
-            TextView textView = locationDialog.findViewById(R.id.textView24);
-            textView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    startActivity(intent);
-                }
-            });
-            locationDialog.show();
-        }
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                checkGPSStatus();
+        if (bleCheck) {
+            LocationManager locationManager = (LocationManager) requireContext().getSystemService(Context.LOCATION_SERVICE);
+            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                locationDialog.dismiss();
+            } else {
+                locationDialog.setContentView(R.layout.dialog_for_location_enable);
+                locationDialog.setCancelable(false);
+                TextView textView = locationDialog.findViewById(R.id.textView24);
+                textView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(intent);
+                    }
+                });
+                locationDialog.show();
             }
-        },4000);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    checkGPSStatus();
+                }
+            }, 4000);
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        bleCheck=false;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        bleCheck=false;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        bleCheck=true;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        bleCheck=false;
     }
 
 }

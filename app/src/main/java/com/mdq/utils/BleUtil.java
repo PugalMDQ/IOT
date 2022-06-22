@@ -405,8 +405,7 @@ public class BleUtil {
             intentVal.putExtra("receivedData", receivedData);
             LocalBroadcastManager.getInstance(context).sendBroadcast(intentVal);
 
-        }
-        else if (firstTwo.equals("111")){
+        } else if (firstTwo.equals("111")) {
 
             //Validate mobile number in home screen
             //existing mobile num and existing device id
@@ -415,7 +414,7 @@ public class BleUtil {
             intentVal.putExtra("receivedData", receivedData);
             LocalBroadcastManager.getInstance(context).sendBroadcast(intentVal);
 
-        }else if (firstTwo.equals("112")){
+        } else if (firstTwo.equals("112")) {
 
             //Validate mobile number in home screen
             //- Existing mobile
@@ -426,7 +425,7 @@ public class BleUtil {
             intentVal.putExtra("receivedData", receivedData);
             LocalBroadcastManager.getInstance(context).sendBroadcast(intentVal);
 
-        }else if (firstTwo.equals("113")){
+        } else if (firstTwo.equals("113")) {
 
             //Validate mobile number in home screen
             //New mobile number
@@ -436,7 +435,7 @@ public class BleUtil {
             intentVal.putExtra("receivedData", receivedData);
             LocalBroadcastManager.getInstance(context).sendBroadcast(intentVal);
 
-        }else if (firstTwo.equals("109")){
+        } else if (firstTwo.equals("109")) {
 
             //Validated the user
             Intent intentVal = new Intent(AppConstants.BLE_DATA); //FILTER is a stringto to identify this intent
@@ -682,6 +681,7 @@ public class BleUtil {
             Log.e("MobileKeyRegister", "", e);
         }
     }
+
     public void Open_Locker(String num) {
         try {
             Log.e(AppConstants.ENTER, "MobileKeyRegister");
@@ -883,10 +883,8 @@ public class BleUtil {
                             mBluetoothGatt.writeCharacteristic(characteristic);
                         else {
                             Log.e(AppConstants.CHARACTERISTICWRITE, "No Permission to Write");
-
                             final BluetoothGattCharacteristic characteristic1 =
                                     localblutoothgatt.getService(UUID.fromString(SERVICE_ID)).getCharacteristics().get(0);
-
                             Log.e("Char to write", characteristic1.getUuid().toString());
                             positionWrite = 0;
                             byte[] byt_arr1;
@@ -905,7 +903,6 @@ public class BleUtil {
                                     Log.e("READ_CALL", "READ_CALL");
                                 }
                             }, 2000);
-
                         } catch (Exception e) {
                             Log.e("Exception", "" + e);
                         }

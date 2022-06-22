@@ -161,7 +161,8 @@ public class activity_profile_setup extends AppCompatActivity {
                             @Override
                             public void run() {
 
-                                Intent intent = new Intent(activity_profile_setup.this, HomeActivity.class);
+                                Intent intent = new Intent(activity_profile_setup.this, Wifi_configuration.class);
+                                intent.putExtra("from","signUPFlow");
                                 startActivity(intent);
                                 dialog.dismiss();
 

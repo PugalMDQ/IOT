@@ -37,6 +37,8 @@ public class PreferenceManager {
 
     private static final String PREF_BLE_CONNECTED = "PREF_BLE_CONNECTED";
 
+    private static final String PREF_USERNAME = "PREF_USERNAME";
+
     private static PreferenceManager mInstance;
 
 
@@ -94,6 +96,15 @@ public class PreferenceManager {
 
     public String getPrefMobile() {
         return sharedPreferences.getString(PREF_MOBILE, null);
+    }
+
+    public void setPrefUsername(String Token) {
+        editor.putString(PREF_USERNAME, Token);
+        editor.commit();
+    }
+
+    public String getPrefUsername() {
+        return sharedPreferences.getString(PREF_USERNAME, null);
     }
 
     public void setPrefUinNum(String Token) {

@@ -15,6 +15,18 @@ public class ResponseForLogin {
     @Expose
     public String mac_id;
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @SerializedName("username")
+    @Expose
+    public String username;
+
     @SerializedName("macid_status")
     @Expose
     public String macid_status;

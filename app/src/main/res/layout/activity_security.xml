@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.mdq.activities.security"
-        android:background="@drawable/login_ac_bg">
+        android:background="@color/white">
 
 
         <ImageView
