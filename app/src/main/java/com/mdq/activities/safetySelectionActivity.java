@@ -85,6 +85,7 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
     TextView textView;
     Dialog locationDialog;
     Dialog dialogBluetooth;
+    boolean bleCheck=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +121,9 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
                                 startActivity(new Intent(safetySelectionActivity.this, MobileRegistration.class));
                             }
                         } else {
-                            bleUtil.pingCmd();
+                            if(bleCheck) {
+                                bleUtil.pingCmd();
+                            }
                         }
                     } else {
                         Toast.makeText(safetySelectionActivity.this, "Read the Term and Condition", Toast.LENGTH_SHORT).show();
@@ -370,7 +373,9 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
             }
             if (data.equals("ble_device_connected")) {
                 Connected = true;
-                bleUtil.pingCmd();
+                if(bleCheck) {
+                    bleUtil.pingCmd();
+                }
             }
 
             if (data.equals("ble_device_disconnected")) {
@@ -382,8 +387,10 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
                 if (!TextUtils.isEmpty(receivedData)) {
                     if (receivedData.substring(0, 2).equals("65")) {
                         openClose = false;
-                        bleUtil.pingCmd();
-                        spinner_dialog();
+                        if(bleCheck) {
+                            bleUtil.pingCmd();
+                            spinner_dialog();
+                        }
                     }
                 }
             }
@@ -411,7 +418,29 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        bleCheck=false;
         LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(receiver);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        bleCheck=false;
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bleCheck=true;
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        bleCheck=false;
+
     }
 
 }

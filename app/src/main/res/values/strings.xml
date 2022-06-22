@@ -10,7 +10,7 @@
     <string name="connected_to">Connected To:</string>
 
     <string name="simple">Simple   Smart   Secure</string>
-    <string name="trys"> Create <font color="#05c8e5">your profile </font> to access the VSafe app</string>
+    <string name="trys">Create <font color="#05c8e5">your profile </font> to access the VSafe app</string>
     <string name="safe"> Which <font color="#05c8e5"> Device </font> would you like to set up.</string>
     <string name="Shop_timing"> <font color="#FFFFF"> Monday to Sunday: </font> 09:00 AM to 07:00 PM.  </string>
     <string name="History"> Set Up <font color="#05c8e5">  Your History  </font> to secure the VSafe App.</string>
@@ -30,7 +30,7 @@ A legitimate terms-of-service agreement is legally binding and may be subject to
 A legitimate terms-of-service agreement is legally binding and may be subject to change.[2] Companies can enforce the terms by refusing service. Customers can enforce by filing a lawsuit or arbitration case if they can show they were actually harmed by a breach of the terms. There is a heightened risk of data going astray during corporate changes, including mergers, divestitures, buyouts, downsizing, etc., when data can be transferred improperly</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="check">By Proceeding, Yes agree to Vsafe\'s conditions of \n use all the <font color="#05c8e5"> <b> Terms &amp; Condition</b> </font></string>
+    <string name="check">By Proceeding, Yes agree to Vsafe\'s conditions of use all the <font color="#05c8e5"> <b> Terms &amp; Condition</b> </font></string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tri">To Register Your<font color="#05c8e5"> Mobile Device</font> With V-safe</string>

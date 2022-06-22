@@ -31,7 +31,8 @@
                     android:layout_marginTop="24dp"
                     android:text="Profile Setup"
                     android:textColor="@color/black"
-                    android:textSize="24sp"
+                    android:textSize="22sp"
+                    android:fontFamily="@font/poppins_bold"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -43,7 +44,9 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="5dp"
                     android:text="@string/pro"
-                    android:textColor="#807C7C"
+                    android:textColor="@color/grey1"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins_bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/pro" />
 
@@ -54,7 +57,9 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="5dp"
                     android:text="More Security"
-                    android:textColor="#3F4145"
+                    android:textColor="@color/grey1"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins_bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/set" />
 
@@ -64,7 +69,7 @@
                     android:layout_height="62dp"
                     android:layout_marginTop="45dp"
                     android:indeterminate="true"
-                    app:indicatorColor="#257fc6"
+                    app:indicatorColor="#51fadb"
                     app:indicatorSize="180dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -91,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
                     android:text="01%"
-                    android:textColor="#257fc6"
+                    android:textColor="#51fadb"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -103,9 +108,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Scanning..."
-                    android:textColor="#807C7C"
-                    android:textSize="20dp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textColor="@color/grey1"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins_bold"                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/percentage" />
 
@@ -127,8 +132,9 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="@string/fin"
-                    android:textColor="#807C7C"
-                    android:textSize="16dp"
+                    android:textColor="@color/grey1"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins_bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/right" />
 
@@ -138,8 +144,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="To Capture Your Fingerprint"
-                    android:textColor="#807C7C"
-                    android:textSize="16dp"
+                    android:textColor="@color/grey1"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins_bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/fin" />
 
@@ -154,8 +161,9 @@
                     android:gravity="center"
                     android:padding="15dp"
                     android:text="Continue"
+                    android:fontFamily="@font/poppins_bold"
                     android:textColor="@color/white"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -172,6 +180,7 @@
                     android:gravity="center"
                     android:padding="15dp"
                     android:text="Skip"
+                    android:fontFamily="@font/poppins_bold"
                     android:textColor="@color/dark_blue"
                     android:textSize="16dp"
                     android:textStyle="bold"

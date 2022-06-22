@@ -49,6 +49,7 @@ public class MobileRegistration extends AppCompatActivity implements SetMac_IDRe
         con = findViewById(R.id.con);
         cancel = findViewById(R.id.cancel);
 
+
         setonClick();
 
     }
@@ -80,6 +81,14 @@ public class MobileRegistration extends AppCompatActivity implements SetMac_IDRe
                         Toast.makeText(MobileRegistration.this, "Failed to validate UIN.", Toast.LENGTH_SHORT).show();
                     }
                 },3000);
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MobileRegistration.this,LoginActivity.class));
+                finish();
             }
         });
 

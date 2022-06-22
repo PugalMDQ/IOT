@@ -29,7 +29,8 @@
                     android:layout_marginTop="24dp"
                     android:text="Safe PIN Setup"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textSize="22sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -40,6 +41,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/profile"
                     android:textColor="#807C7C"
+                    android:textSize="14dp"
+                    android:fontFamily="@font/poppins_bold"
                     app:layout_constraintTop_toBottomOf="@+id/pro"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginLeft="16dp"
@@ -51,6 +54,7 @@
                     android:layout_height="wrap_content"
                     android:text="VSafe App"
                     android:textColor="#807C7C"
+                    android:fontFamily="@font/poppins_bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/secure"
                     android:layout_marginLeft="16dp"
@@ -61,19 +65,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/create"
+                    android:fontFamily="@font/poppins_bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/safe"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="20dp"
-                    android:textSize="19dp" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/epin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ENTER PIN"
+                    android:text="Enter PIN"
                     android:textStyle="bold"
+                    android:textSize="14sp"
                     android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/lock"
                     android:layout_marginLeft="16dp"
@@ -101,11 +108,12 @@
                         android:maxLength="4"
                         android:inputType="number"
                         android:textAllCaps="true"
+                        android:fontFamily="@font/poppins_bold"
+                        android:textSize="12sp"
                         android:paddingLeft="5dp"
                         android:background="@null"
                         android:letterSpacing="0.5"
                         android:textColor="@color/black"
-                        android:textSize="18sp"
                         android:paddingBottom="9dp"
                       />
 
@@ -115,13 +123,15 @@
                     android:id="@+id/cpin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="CONFIRM PIN"
+                    android:text="Confirm PIN"
                     android:textColor="@color/black"
                     android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins_bold"
                     app:layout_constraintTop_toBottomOf="@+id/enterpin"
                     android:layout_marginTop="20dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginLeft="20dp" />
+                    android:layout_marginLeft="16dp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/confirmpin"
@@ -149,8 +159,8 @@
                         android:background="@null"
                         android:letterSpacing="0.5"
                         android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:paddingBottom="9dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:textSize="12sp"                        android:paddingBottom="9dp"
                         android:gravity="center_vertical" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -166,14 +176,16 @@
                     app:layout_constraintTop_toBottomOf="@id/confirmpin"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="20dp"
-                    android:textSize="19dp" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/epin1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ENTER PIN"
+                    android:text="Enter PIN"
                     android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins_bold"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/emergency"
@@ -205,8 +217,8 @@
                         android:textAllCaps="true"
                         android:paddingLeft="5dp"
                         android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:letterSpacing="0.5"
+                        android:fontFamily="@font/poppins_bold"
+                        android:textSize="12sp"                        android:letterSpacing="0.5"
                         android:paddingBottom="9dp"
                         android:gravity="center_vertical" />
 
@@ -216,9 +228,11 @@
                     android:id="@+id/confirmpin1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="CONFIRM PIN"
+                    android:text="Confirm PIN"
                     android:textColor="@color/black"
                     android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins_bold"
                     app:layout_constraintTop_toBottomOf="@+id/enterpin1"
                     android:layout_marginTop="20dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -250,7 +264,8 @@
                         android:textAllCaps="true"
                         android:paddingLeft="5dp"
                         android:gravity="center_vertical"
-                        android:textSize="18sp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:textSize="12sp"
                         android:paddingBottom="9dp"
                         android:letterSpacing="0.5" />
 
@@ -267,6 +282,7 @@
                     android:background="@drawable/ripple_cancel"
                     android:gravity="center"
                     android:padding="15dp"
+                    android:fontFamily="@font/poppins_bold"
                     android:text="Continue"
                     android:textColor="@color/white"
                     android:textSize="16dp"

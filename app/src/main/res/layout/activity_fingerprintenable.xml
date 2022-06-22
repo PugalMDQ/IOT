@@ -31,7 +31,8 @@
                     android:layout_marginTop="24dp"
                     android:text="Profile Setup"
                     android:textColor="@color/black"
-                    android:textSize="24sp"
+                    android:textSize="22sp"
+                    android:fontFamily="@font/poppins_bold"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -43,8 +44,9 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="5dp"
                     android:text="@string/pro"
-                    android:textColor="#807C7C"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:textColor="@color/grey1"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins_bold"                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/pro" />
 
                 <TextView
@@ -54,8 +56,9 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="5dp"
                     android:text="More Security"
-                    android:textColor="#3F4145"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:textColor="@color/grey1"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins_bold"                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/set" />
 
                 <com.google.android.material.progressindicator.CircularProgressIndicator
@@ -152,12 +155,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_bold"
                     android:gravity="center"
                     android:layout_margin="50dp"
                     android:text="Would you like to enable Biometric Authentication"
-                    android:textSize="14dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textColor="@color/grey1"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins_bold"                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -175,7 +178,8 @@
                     android:padding="15dp"
                     android:text="Continue"
                     android:textColor="@color/white"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
+                    android:fontFamily="@font/poppins_bold"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -193,6 +197,7 @@
                     android:gravity="center"
                     android:padding="15dp"
                     android:text="Skip"
+                    android:fontFamily="@font/poppins_bold"
                     android:textColor="@color/dark_blue"
                     android:textSize="16dp"
                     android:textStyle="bold"

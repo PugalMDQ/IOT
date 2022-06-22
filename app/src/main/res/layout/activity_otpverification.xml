@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/poppins_bold"
             android:text="OTP Verification"
             android:textColor="@color/black"
             android:textSize="22dp"
@@ -55,7 +55,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_bold"
+                android:fontFamily="@font/poppins_bold"
                 android:text="Enter the OTP sent to "
                 android:textColor="#8D8E8F"
                 android:layout_marginLeft="16dp"
@@ -158,36 +158,36 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/roboto_bold"
+                android:fontFamily="@font/poppins_bold"
                 android:gravity="center"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:text="1"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/two"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/roboto_bold"
+                android:fontFamily="@font/poppins_bold"
                 android:gravity="center"
                 android:text="2"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/three"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/roboto_bold"
+                android:fontFamily="@font/poppins_bold"
                 android:gravity="center"
                 android:text="3"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -208,36 +208,36 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/roboto_bold"
+                android:fontFamily="@font/poppins_bold"
                 android:gravity="center"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:text="4"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/five"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/roboto_bold"
+                android:fontFamily="@font/poppins_bold"
                 android:gravity="center"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:text="5"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/six"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/roboto_bold"
+                android:fontFamily="@font/poppins_bold"
                 android:gravity="center"
                 android:text="6"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -258,36 +258,36 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/roboto_bold"
+                android:fontFamily="@font/poppins_bold"
                 android:gravity="center"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:text="7"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/eight"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/roboto_bold"
+                android:fontFamily="@font/poppins_bold"
                 android:gravity="center"
                 android:text="8"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/nine"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/roboto_bold"
+                android:fontFamily="@font/poppins_bold"
                 android:gravity="center"
                 android:text="9"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -317,12 +317,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/roboto_bold"
+                android:fontFamily="@font/poppins_bold"
                 android:gravity="center"
                 android:text="0"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:id="@+id/backspace"
@@ -331,12 +331,15 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:src="@drawable/vg"
+                android:tint="@color/Sky_Blue"
                 android:text="9"
                 android:padding="5dp"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                tools:ignore="UseAppTint" />
 
         </LinearLayout>
+
         <TextView
             android:id="@+id/Register"
             android:layout_width="match_parent"
@@ -346,7 +349,7 @@
             android:elevation="20dp"
             android:layout_marginRight="18sp"
             android:background="@drawable/ripple_login_bg"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/poppins_bold"
             android:gravity="center"
             android:padding="15dp"
             android:text="Confirm"

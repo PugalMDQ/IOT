@@ -25,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,12 +45,14 @@ public class home extends Fragment {
     BleUtil bleUtil;
     PreferenceManager preferenceManager;
     boolean openClose = false;
-    boolean bleCheck=true;
+    boolean bleCheck = true;
     Dialog locationDialog;
     Dialog dialogBluetooth;
     RequestPermission requestPermission;
-    boolean dialogs=true;
+    boolean dialogs = true;
     Dialog dialog;
+    Dialog dialog_Spinner;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,6 +62,7 @@ public class home extends Fragment {
 
         locationDialog = new Dialog(requireContext(), R.style.dialog_center);
         dialogBluetooth = new Dialog(requireContext(), R.style.dialog_center);
+        dialog_Spinner = new Dialog(requireContext(), R.style.dialog_center);
 
         requestPermission = new RequestPermission(requireActivity());
         bleUtil = new BleUtil(requireContext());
@@ -67,13 +71,13 @@ public class home extends Fragment {
         BluetoothCheck();
         dialog = new Dialog(requireActivity(), R.style.dialog_center);
 
-        if(dialog.isShowing()){
-            dialogs=false;
-        }else{
-            dialogs=true;
+        if (dialog.isShowing()) {
+            dialogs = false;
+        } else {
+            dialogs = true;
         }
 
-        fragmentHomeBinding.name.setText("Hello, "+getPreferenceManager().getPrefUsername().trim());
+        fragmentHomeBinding.name.setText("Hello, " + getPreferenceManager().getPrefUsername().trim());
 
         fragmentHomeBinding.drack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,12 +93,9 @@ public class home extends Fragment {
                     public void onClick(View v) {
                         if (pin.getText().length() == 4) {
                             if (!openClose) {
-                                if (getPreferenceManager().getPrefLockerPin().equals(pin.getText().toString().trim()) || preferenceManager.getPrefSosNum().equals(pin.getText().toString().trim())) {
-                                    dialog.dismiss();
-                                    bleUtil.Open_Locker(getPreferenceManager().getPrefMobile());
-                                } else {
-                                    Toast.makeText(requireContext(), "Entered PIN is wrong ", Toast.LENGTH_SHORT).show();
-                                }
+                                dialog.dismiss();
+                                bleUtil.Open_Locker(getPreferenceManager().getPrefMobile());
+                                spinner_dialog();
                             } else {
                                 Toast.makeText(requireContext(), "Door already open ", Toast.LENGTH_SHORT).show();
                             }
@@ -113,21 +114,19 @@ public class home extends Fragment {
                 startActivity(new Intent(requireActivity(), Notificationactivity.class));
             }
         });
-
         return fragmentHomeBinding.getRoot();
-
     }
 
     private void bleCall() {
 //        new Handler().postDelayed(new Runnable() {
 //            @Override
 //            public void run() {
-                if(bleCheck) {
-                    if(dialogs) {
-                        bleUtil.pingCmd();
+        if (bleCheck) {
+            if (dialogs) {
+                bleUtil.pingCmd();
 //                        bleCall();
-                    }
-                }
+            }
+        }
 //            }
 //        },5000);
     }
@@ -172,10 +171,12 @@ public class home extends Fragment {
                     }
                 }, 8800);
 
+                fragmentHomeBinding.drack.setBackground(getResources().getDrawable(R.drawable.round_bg));
                 fragmentHomeBinding.statusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_unlock_padlock_svgrepo_com));
                 fragmentHomeBinding.lite.setVisibility(View.INVISIBLE);
                 fragmentHomeBinding.medium.setVisibility(View.INVISIBLE);
                 fragmentHomeBinding.noteText.setVisibility(View.VISIBLE);
+                fragmentHomeBinding.noteText.setText("Locker is OPEN...");
                 fragmentHomeBinding.noteText.setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.flash));
 
             }
@@ -208,7 +209,6 @@ public class home extends Fragment {
         return preferenceManager;
     }
 
-
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -225,13 +225,15 @@ public class home extends Fragment {
                 Log.i("testdataonthetop", data + "");
             }
 
-
             if (data.equals("door_closed")) {
                 if (!TextUtils.isEmpty(receivedData)) {
                     if (receivedData.substring(0, 2).equals("65")) {
                         fragmentHomeBinding.drack.setBackground(getResources().getDrawable(R.drawable.green_round_bg));
                         fragmentHomeBinding.statusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_lock_svgrepo_com));
                         openClose = false;
+                        fragmentHomeBinding.noteText.setVisibility(View.VISIBLE);
+                        fragmentHomeBinding.noteText.setText("Locker is CLOSE...");
+                        fragmentHomeBinding.noteText.setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.flash));
                     }
                 }
             }
@@ -242,6 +244,10 @@ public class home extends Fragment {
                         fragmentHomeBinding.drack.setBackground(getResources().getDrawable(R.drawable.round_bg));
                         fragmentHomeBinding.statusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_unlock_padlock_svgrepo_com));
                         openClose = true;
+                        fragmentHomeBinding.noteText.setVisibility(View.VISIBLE);
+                        fragmentHomeBinding.noteText.setText("Locker is OPEN...");
+                        fragmentHomeBinding.noteText.setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.flash));
+
                     }
                 }
             }
@@ -249,6 +255,7 @@ public class home extends Fragment {
             if (data.equals("locker_opened")) {
                 if (!TextUtils.isEmpty(receivedData)) {
                     if (receivedData.substring(0, 2).equals("109")) {
+                        dialog_Spinner.dismiss();
                         firstVisible();
                     }
                 }
@@ -257,7 +264,8 @@ public class home extends Fragment {
             if (data.equals("ERROR")) {
                 if (!TextUtils.isEmpty(receivedData)) {
                     if (receivedData.substring(0, 2).equals("C8")) {
-                        Toast.makeText(context, "Invalid Request", Toast.LENGTH_SHORT).show();
+                        dialog_Spinner.dismiss();
+                        Toast.makeText(context, "Invalid Request", Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -356,25 +364,34 @@ public class home extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        bleCheck=false;
+        bleCheck = false;
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        bleCheck=false;
+        bleCheck = false;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        bleCheck=true;
+        bleCheck = true;
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        bleCheck=false;
+        bleCheck = false;
+    }
+
+    private void spinner_dialog() {
+        dialog_Spinner.setContentView(R.layout.dialog_spinner);
+        dialog_Spinner.setCanceledOnTouchOutside(false);
+        ProgressBar progressBar = dialog_Spinner.findViewById(R.id.progress);
+        TextView textView = dialog_Spinner.findViewById(R.id.subText);
+        textView.setText("Validating...");
+        dialog_Spinner.show();
     }
 
 }

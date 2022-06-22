@@ -30,13 +30,14 @@
 
                 <TextView
                     android:id="@+id/mreg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="185dp"
+                    android:layout_height="47dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="24dp"
+                    android:fontFamily="@font/poppins_bold"
                     android:text="UIN Registration"
                     android:textColor="@color/black"
-                    android:textSize="24sp"
+                    android:textSize="22sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -47,8 +48,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="5dp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins_bold"
                     android:text="@string/trys"
-                    android:textColor="#807C7C"
+                    android:textColor="@color/grey1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/mreg" />
 
@@ -58,8 +61,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="5dp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins_bold"
                     android:text="Enter Your 10 Digit V-Safe UIN."
-                    android:textColor="#3F4145"
+                    android:textColor="@color/grey1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/toreg" />
 
@@ -89,10 +94,12 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="5dp"
                         android:layout_weight="1"
+                        android:textSize="12sp"
                         android:background="@drawable/box"
                         android:gravity="center"
                         android:hint="VSAFE12345"
                         android:letterSpacing="0.5"
+                        android:fontFamily="@font/poppins_bold"
                         android:maxLength="10"
                         android:textColor="@color/black">
 
@@ -113,6 +120,7 @@
                     android:gravity="center"
                     android:padding="15dp"
                     android:text="Continue"
+                    android:fontFamily="@font/poppins_bold"
                     android:textColor="@color/white"
                     android:textSize="16dp"
                     android:textStyle="bold"
@@ -129,6 +137,7 @@
                     android:layout_marginRight="16dp"
                     android:background="@drawable/ripple_continue"
                     android:elevation="20dp"
+                    android:fontFamily="@font/poppins_bold"
                     android:gravity="center"
                     android:padding="15dp"
                     android:text="Cancel"
