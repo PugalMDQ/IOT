@@ -13,7 +13,7 @@
         android:background="@color/white"
         tools:context="com.mdq.activities.MobileRegistration">
 
-        <androidx.core.widget.NestedScrollView
+        <ScrollView
             android:id="@+id/nestedScrollView"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -180,7 +180,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        </androidx.core.widget.NestedScrollView>
+        </ScrollView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/colorButton</item>
         <item name="colorPrimaryDark">@color/white</item>
         <item name="colorAccent">@color/colorButton</item>
+        <item name="android:windowLightStatusBar">true</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_200</item>

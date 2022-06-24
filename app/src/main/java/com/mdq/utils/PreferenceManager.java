@@ -1,7 +1,10 @@
 package com.mdq.utils;
 
+import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.google.gson.Gson;
 
 //For local Storage
 public class PreferenceManager {
@@ -38,6 +41,8 @@ public class PreferenceManager {
     private static final String PREF_BLE_CONNECTED = "PREF_BLE_CONNECTED";
 
     private static final String PREF_USERNAME = "PREF_USERNAME";
+
+    private static final String PREF_BLE_DEVICE = "PREF_BLE_DEVICE";
 
     private static PreferenceManager mInstance;
 
@@ -114,6 +119,17 @@ public class PreferenceManager {
 
     public String getPrefUinNum() {
         return sharedPreferences.getString(PREF_UIN_NUM, null);
+    }
+
+    public void setPrefBleDevice(BluetoothDevice mmDevice) {
+        Gson gson = new Gson();
+        String json = gson.toJson(mmDevice);
+        editor.putString(PREF_BLE_DEVICE, json);
+        editor.commit();
+    }
+
+    public String getPrefBleDevice() {
+        return sharedPreferences.getString(PREF_BLE_DEVICE, null);
     }
 
     public void setPrefSosNum(String Token) {

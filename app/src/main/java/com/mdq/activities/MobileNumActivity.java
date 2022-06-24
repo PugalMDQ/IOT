@@ -85,7 +85,7 @@ public class MobileNumActivity extends AppCompatActivity implements numberValida
             secondNumber();
 
 
-        }else{
+        } else {
 
             requestPermission();
         }
@@ -135,13 +135,26 @@ public class MobileNumActivity extends AppCompatActivity implements numberValida
                 dialog();
                 Log.i("sim1", SIMmobileNum1);
                 Log.i("sim2", SIMmobileNum2);
-            }else{
+            } else {
 
                 TelephonyManager telephonyManager1 = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
                 String phoneNumber = telephonyManager1.getLine1Number();
-                SIMmobileNum1 = phoneNumber.trim().substring(2);
-                dialog();
-                GetNumber();
+                try {
+
+                    if (phoneNumber.trim().length() == 13) {
+                        SIMmobileNum1 = phoneNumber.trim().substring(3);
+                    } else if (phoneNumber.trim().length() == 12) {
+                        SIMmobileNum1 = phoneNumber.trim().substring(2);
+                    } else if (phoneNumber.trim().length() == 10) {
+                        SIMmobileNum1 = phoneNumber.trim();
+                    }
+                    dialog();
+
+                }catch (Exception e){
+                    Log.i("exception",e.toString());
+                    Toast.makeText(this, "Please insert SIM", Toast.LENGTH_LONG).show();
+                }
+//                GetNumber();
             }
         }
     }
@@ -154,10 +167,10 @@ public class MobileNumActivity extends AppCompatActivity implements numberValida
         TextView sim1 = dialog.findViewById(R.id.Sim1);
         TextView sim2 = dialog.findViewById(R.id.Sim2);
 
-        sim1.setText(" +91  "+SIMmobileNum1);
-        if(SIMmobileNum2!=null) {
-            sim2.setText("+91  "+SIMmobileNum2);
-        }else{
+        sim1.setText(" +91  " + SIMmobileNum1);
+        if (SIMmobileNum2 != null) {
+            sim2.setText("+91  " + SIMmobileNum2);
+        } else {
 
         }
         sim1.setOnClickListener(new View.OnClickListener() {
@@ -184,6 +197,14 @@ public class MobileNumActivity extends AppCompatActivity implements numberValida
             @Override
             public void onClick(View v) {
                 onBackPressed();
+                finish();
+            }
+        });
+
+        activityMobileNumBinding.signin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MobileNumActivity.this, LoginActivity.class));
                 finish();
             }
         });
@@ -302,10 +323,11 @@ public class MobileNumActivity extends AppCompatActivity implements numberValida
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(new String[]{READ_SMS, READ_PHONE_NUMBERS, READ_PHONE_STATE}, 100);
             }
-        }catch (Exception e){
-            Log.i("Exception",""+e);
+        } catch (Exception e) {
+            Log.i("Exception", "" + e);
         }
     }
+
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {

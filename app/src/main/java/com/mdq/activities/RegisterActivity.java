@@ -25,7 +25,6 @@ import com.mdq.pojo.jsonresponse.ErrorBody;
 import com.mdq.pojo.jsonresponse.GenerateRegisterResponseModel;
 import com.mdq.utils.PreferenceManager;
 
-
 public class RegisterActivity extends AppCompatActivity implements RegisterResponseInterface {
 
     ActivityRegisterBinding activityRegisterBinding;
@@ -139,11 +138,10 @@ public class RegisterActivity extends AppCompatActivity implements RegisterRespo
                     Toast.makeText(getApplicationContext(), "Enter Email", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                 if(activityRegisterBinding.username.getText().toString()==null){
-                    Toast.makeText(getApplicationContext(), "Enter Name", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
+                 if(activityRegisterBinding.username.getText().toString()==null) {
+                     Toast.makeText(getApplicationContext(), "Enter Name", Toast.LENGTH_SHORT).show();
+                     return;
+                 }
                  if(activityRegisterBinding.Mpin.getText().toString().equals(activityRegisterBinding.REMpin.getText().toString())){
 
                  }else{

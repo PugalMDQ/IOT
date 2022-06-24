@@ -19,6 +19,7 @@ import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
+import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -49,8 +50,10 @@ import com.mdq.marinetechapp.databinding.ActivitySafetySelectionBinding;
 import com.mdq.pojo.DeviceListObject;
 import com.mdq.utils.BleUtil;
 import com.mdq.utils.Helper;
+import com.mdq.utils.PreferenceManager;
 import com.mdq.utils.RequestPermission;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -64,6 +67,7 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
     public static List<BluetoothDevice> bluetoothDeviceList;
     public static List<DeviceListObject> deviceListObjects;
     public static ArrayList<String> deviceListDub;
+    public static ArrayList<String> deviceAddress = new ArrayList<>();
     public static UnConfigDeviceListAdapter unConfigDeviceListAdapter;
     private static Context context;
     private static DeviceListInterface deviceListInterface;
@@ -71,6 +75,7 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
     public static RecyclerView rcvSearchMarineBleDevice;
     private BleUtil bleUtil;
     private WifiManager wifiManager;
+    PreferenceManager preferenceManager;
     RequestPermission requestPermission;
     private String blePosition;
     public BluetoothDevice bluetoothDevice;
@@ -79,13 +84,14 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
     boolean Connected = false;
     boolean openClose = false;
     boolean FromLogin = false;
+    String from;
     public static SwipeRefreshLayout swipeRefreshLayout;
     Dialog dialog_Spinner;
     ProgressBar progressBar;
     TextView textView;
     Dialog locationDialog;
     Dialog dialogBluetooth;
-    boolean bleCheck=true;
+    boolean bleCheck = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,13 +101,15 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
 
         try {
             Intent intent = getIntent();
-            String from = intent.getStringExtra("from");
+            from = intent.getStringExtra("from");
             if (from.equals("login")) {
                 FromLogin = true;
+                openClose = true;
             }
         } catch (Exception e) {
 
         }
+
         swipeRefreshLayout = findViewById(R.id.refresh);
         locationDialog = new Dialog(safetySelectionActivity.this, R.style.dialog_center);
         dialogBluetooth = new Dialog(safetySelectionActivity.this, R.style.dialog_center);
@@ -121,7 +129,7 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
                                 startActivity(new Intent(safetySelectionActivity.this, MobileRegistration.class));
                             }
                         } else {
-                            if(bleCheck) {
+                            if (bleCheck) {
                                 bleUtil.pingCmd();
                             }
                         }
@@ -162,7 +170,7 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
             if (!mBluetoothAdapter.isEnabled()) {
                 // Bluetooth is not enable :)
                 dialog_bluetooth();
-            }else{
+            } else {
                 dialogBluetooth.dismiss();
             }
         }
@@ -171,7 +179,7 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
             public void run() {
                 BluetoothCheck();
             }
-        },4000);
+        }, 4000);
     }
 
     private void dialog_bluetooth() {
@@ -218,7 +226,7 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
             public void run() {
                 checkGPSStatus();
             }
-        },4000);
+        }, 4000);
     }
 
     private void spinner_dialog() {
@@ -308,6 +316,7 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
                     if (onClick) {
                         bleUtil.stopScanning();
                         bleUtil.connect_to_tool(bluetoothDevice);
+                        getPreferenceManager().setPrefBleDevice(bluetoothDevice);
                         onClick = false;
                     }
                 }
@@ -373,8 +382,14 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
             }
             if (data.equals("ble_device_connected")) {
                 Connected = true;
-                if(bleCheck) {
-                    bleUtil.pingCmd();
+                if (bleCheck) {
+                    if(from==null){
+                        bleUtil.pingCmd();
+                    }else {
+                        if (!from.equals("login")) {
+                            bleUtil.pingCmd();
+                        }
+                    }
                 }
             }
 
@@ -387,7 +402,7 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
                 if (!TextUtils.isEmpty(receivedData)) {
                     if (receivedData.substring(0, 2).equals("65")) {
                         openClose = false;
-                        if(bleCheck) {
+                        if (bleCheck) {
                             bleUtil.pingCmd();
                             spinner_dialog();
                         }
@@ -418,29 +433,40 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        bleCheck=false;
+        bleCheck = false;
         LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(receiver);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        bleCheck=false;
+        bleCheck = false;
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        bleCheck=true;
+        bleCheck = true;
 
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        bleCheck=false;
+        bleCheck = false;
 
     }
 
+    /**
+     * @return
+     * @brief initializing the preferenceManager from shared preference for local use in this activity
+     */
+    public PreferenceManager getPreferenceManager() {
+        if (preferenceManager == null) {
+            preferenceManager = PreferenceManager.getInstance();
+            preferenceManager.initialize(getApplicationContext());
+        }
+        return preferenceManager;
+    }
 }

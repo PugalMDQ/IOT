@@ -28,16 +28,15 @@
                     android:id="@+id/text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
                     android:text="Swipe down to scan your VSafe smart locker!"
                     android:textColor="@color/grey1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:gravity="center"
-                    android:fontFamily="@font/poppins_bold"
-                    android:textSize="14sp"
-                    />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/header"
@@ -116,7 +115,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
-
                 <CheckBox
                     android:id="@+id/check"
                     android:layout_width="wrap_content"
@@ -135,10 +133,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
+                    android:fontFamily="@font/poppins_bold"
                     android:lineSpacingExtra="1dp"
                     android:text="@string/check"
                     android:textColor="@color/grey1"
-                    android:fontFamily="@font/poppins_bold"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/check"

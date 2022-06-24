@@ -45,7 +45,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
-
                 </androidx.cardview.widget.CardView>
 
                 <ImageView
@@ -56,9 +55,11 @@
                     android:paddingLeft="30dp"
                     android:src="@drawable/ic_otp"
                     app:cardCornerRadius="200dp"
+                    android:tint="@color/Sky_Blue"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="UseAppTint" />
 
                 <TextView
                     android:id="@+id/OTP"
@@ -79,7 +80,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/poppins_bold"
-                    android:text=" We will send you a One Time Password to this \n mobile number"
+                    android:text=" We will send you a One Time Password to this mobile number"
                     android:textColor="#9E9D9D"
                     android:textSize="15sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -98,6 +99,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Contant">
+
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -179,6 +181,7 @@
                         android:textSize="14dp" />
 
                     <TextView
+                        android:id="@+id/signin"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="4"

@@ -36,6 +36,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MarineTechApp">
         <activity
+            android:name="com.mdq.activities.setting_exp"
+            android:exported="true">
+
+
+        </activity>
+        <activity
             android:name="com.mdq.activities.EmergencyNumberActivity"
             android:exported="false" />
         <activity
@@ -76,13 +82,13 @@
             android:exported="false" />
         <activity
             android:name="com.mdq.activities.MobileRegistration"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name="com.mdq.activities.activity_fingerprint_authentication"
             android:exported="false" />
         <activity
             android:name="com.mdq.activities.activity_profile_setup"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name="com.mdq.activities.Notificationactivity"
             android:exported="true" />
@@ -91,7 +97,7 @@
             android:exported="true" />
         <activity
             android:name="com.mdq.activities.safetySelectionActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name="com.mdq.activities.HomeActivity"
             android:exported="true" />
@@ -101,7 +107,7 @@
         <activity
             android:name=".activities.SplashActivity"
             android:exported="true"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activities.LoginActivityMarine"
             android:screenOrientation="landscape" />
@@ -132,7 +138,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

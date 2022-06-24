@@ -11,7 +11,7 @@
 
     <string name="simple">Simple   Smart   Secure</string>
     <string name="trys">Create <font color="#05c8e5">your profile </font> to access the VSafe app</string>
-    <string name="safe"> Which <font color="#05c8e5"> Device </font> would you like to set up.</string>
+    <string name="safe"> Which Device would you like to set up.</string>
     <string name="Shop_timing"> <font color="#FFFFF"> Monday to Sunday: </font> 09:00 AM to 07:00 PM.  </string>
     <string name="History"> Set Up <font color="#05c8e5">  Your History  </font> to secure the VSafe App.</string>
     <string name="title_activity_home">Home</string>

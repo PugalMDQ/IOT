@@ -14,6 +14,7 @@ import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
@@ -25,6 +26,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.mdq.interfaces.AppConstants;
 import com.mdq.activities.safetySelectionActivity;
+import com.mdq.marinetechapp.databinding.ActivitySafetySelectionBinding;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -55,6 +57,7 @@ public class BleUtil {
     private static String OPEN_CLOSE_LOCKER = "0AFF";
 
     private PreferenceManagerMarine preferenceManager;
+    private PreferenceManager preferenceManagerVSafe;
     private String commandToPair;
     private BluetoothDevice bluetoothName;
     private boolean isWrite = false;
@@ -69,7 +72,6 @@ public class BleUtil {
     }
 
     public native String enc(byte[] getdata);
-
     public native String dec(byte[] decryptData);
 
     Handler handler = new Handler();
@@ -145,6 +147,7 @@ public class BleUtil {
                         if (!safetySelectionActivity.set_deviceList.contains(result.getDevice().getName())) {
                             Log.e("DeviceNameAdd", result.getDevice().getName() + "");
                             safetySelectionActivity.set_deviceList.add(result.getDevice().getName() + "");
+                            safetySelectionActivity.deviceAddress.add(result.getDevice().getAddress().trim());
                             safetySelectionActivity.deviceArrayList.add(result.getDevice().getName() + "");
                             BluetoothDevice bluetoothDevice = result.getDevice();
                             safetySelectionActivity.bluetoothDeviceList.add(bluetoothDevice);
@@ -188,6 +191,7 @@ public class BleUtil {
     @SuppressLint("MissingPermission")
     public void connect_to_tool(BluetoothDevice bluetoothDevice) {
         Log.e("check_to_connect_device", bluetoothDevice.getName());
+
         try {
             connectBle(bluetoothDevice);
             Log.e("Connected", "");
@@ -234,6 +238,9 @@ public class BleUtil {
                 intentVal.putExtra("receivedData", bluetoothName.getName());
                 intentVal.putExtra("status", String.valueOf(status));
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intentVal);
+
+//                IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
+//                safetySelectionActivity.registerReceiver(mReceiver, filter);
 
             } else if (newState == STATE_DISCONNECTED) {
                 Log.e("Device State", "Device Disconnected");
@@ -969,5 +976,16 @@ public class BleUtil {
             Log.e("getSerialException", "", e);
         }
         return commandToPair;
+    }
+    /**
+     * @return
+     * @brief initializing the preferenceManager from shared preference for local use in this activity
+     */
+    public PreferenceManager getPreferenceManager() {
+        if (preferenceManagerVSafe == null) {
+            preferenceManagerVSafe = PreferenceManager.getInstance();
+            preferenceManagerVSafe.initialize(context);
+        }
+        return preferenceManagerVSafe;
     }
 }

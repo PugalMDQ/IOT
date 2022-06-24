@@ -5,6 +5,7 @@ import static android.Manifest.permission.READ_PHONE_STATE;
 import static android.Manifest.permission.READ_SMS;
 
 import android.Manifest;
+import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -29,6 +30,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mdq.ViewModel.LoginRequestViewModel;
 import com.mdq.ViewModel.VerificationKeyViewModel;
 import com.mdq.enums.MessageViewType;
@@ -40,8 +43,10 @@ import com.mdq.marinetechapp.databinding.ActivityLoginBinding;
 import com.mdq.pojo.jsonresponse.ErrorBody;
 import com.mdq.pojo.jsonresponse.GenerateLoginResponseModel;
 import com.mdq.pojo.jsonresponse.GenerateVerificationKeyResponseModel;
+import com.mdq.utils.BleUtil;
 import com.mdq.utils.PreferenceManager;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity implements VerificationKeyResponseInterface, LoginResponseInterface {
@@ -225,13 +230,25 @@ public class LoginActivity extends AppCompatActivity implements VerificationKeyR
             getPreferenceManager().setPrefMobile(getActivityLoginBinding.email.getText().toString().trim());
             getPreferenceManager().setPrefUsername(generateLoginResponseModel.getId().get(0).getUsername().trim());
 
-            if (generateLoginResponseModel.getId().get(0).getMacid_status().trim().equals("1")) {
-                getPreferenceManager().setPrefUinNum(generateLoginResponseModel.getId().get(0).getMac_id());
-                startActivity(new Intent(getApplicationContext(), safetySelectionActivity.class)
-                        .putExtra("from","login"));
+            BleUtil bleUtil=new BleUtil(getApplicationContext());
+            Gson gson = new Gson();
+            String json =getPreferenceManager().getPrefBleDevice();
 
-                finish();
-            }else{
+            Type type = new TypeToken<BluetoothDevice>(){}.getType();
+            BluetoothDevice bluetoothDevice= gson.fromJson(json, type);
+            bleUtil.connect_to_tool(bluetoothDevice);
+
+            if (generateLoginResponseModel.getId().get(0).getMacid_status().trim().equals("1")) {
+                if(bluetoothDevice!=null) {
+                    getPreferenceManager().setPrefUinNum(generateLoginResponseModel.getId().get(0).getMac_id());
+                    startActivity(new Intent(getApplicationContext(), HomeActivity.class)
+                            .putExtra("from", "login"));
+                    finish();
+                }else{
+                    startActivity(new Intent(getApplicationContext(), safetySelectionActivity.class));
+                    finish();
+                }
+            } else {
                 startActivity(new Intent(getApplicationContext(), safetySelectionActivity.class));
                 finish();
             }
@@ -328,12 +345,23 @@ public class LoginActivity extends AppCompatActivity implements VerificationKeyR
                 }
                 String phoneNumber = telephonyManager.getLine1Number();
 
-                SIMmobileNum1 = phoneNumber.trim().substring(2);
+                try {
+
+                    if (phoneNumber.trim().length() == 13) {
+                        SIMmobileNum1 = phoneNumber.trim().substring(3);
+                    } else if (phoneNumber.trim().length() == 12) {
+                        SIMmobileNum1 = phoneNumber.trim().substring(2);
+                    } else if (phoneNumber.trim().length() == 10) {
+                        SIMmobileNum1 = phoneNumber.trim();
+                    }
+                }catch (Exception e){
+                    Log.i("exception",e.toString());
+                    Toast.makeText(this, "Please insert SIM", Toast.LENGTH_LONG).show();
+                }
                 secondNumber();
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + requestCode);
         }
     }
-
 }
