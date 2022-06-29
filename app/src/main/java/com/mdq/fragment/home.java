@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Typeface;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -19,7 +20,11 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.os.Handler;
 import android.provider.Settings;
+import android.text.Html;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,6 +57,7 @@ public class home extends Fragment {
     boolean dialogs = true;
     Dialog dialog;
     Dialog dialog_Spinner;
+    String from;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,6 +65,19 @@ public class home extends Fragment {
         // Inflate the layout for this fragment
         fragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false);
         LocalBroadcastManager.getInstance(requireContext()).registerReceiver(receiver, new IntentFilter("ble_data"));
+
+        try {
+            Bundle bundle = this.getArguments();
+            from = bundle.getString("message");
+//            Toast.makeText(requireContext(), "" + from, Toast.LENGTH_SHORT).show();
+            if (from.trim().equals("login")) {
+                gatheringLockerStatusDialog();
+            } else if (from.trim().equals("signup")) {
+                gatheringLockerStatusDialog();
+            }
+        } catch (Exception e) {
+
+        }
 
         locationDialog = new Dialog(requireContext(), R.style.dialog_center);
         dialogBluetooth = new Dialog(requireContext(), R.style.dialog_center);
@@ -73,9 +92,20 @@ public class home extends Fragment {
         BluetoothCheck();
         dialog = new Dialog(requireActivity(), R.style.dialog_center);
 
-        dialogCheck();
+//        FirebaseMessaging.getInstance().token.addOnCompleteListener {
+//            if (it.isComplete) {
+//
+//                var firebaseToken = it.result.toString()
+//                Log.i("sanjai1243421321", firebaseToken)
+//
+//            }
+//        }
 
-        fragmentHomeBinding.name.setText("Hello, " + getPreferenceManager().getPrefUsername().trim());
+        dialogCheck();
+        SpannableString ss = new SpannableString("Hello "+getPreferenceManager().getPrefUsername().trim());
+        StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
+        ss.setSpan(boldSpan, 7, getPreferenceManager().getPrefUsername().trim().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        fragmentHomeBinding.name.setText(ss);
 
         fragmentHomeBinding.drack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +122,7 @@ public class home extends Fragment {
                             if (pin.getText().length() == 4) {
                                 if (!openClose) {
                                     dialog.dismiss();
-                                    bleUtil.Open_Locker(getPreferenceManager().getPrefMobile());
+                                    bleUtil.Open_Locker(pin.getText().toString().trim(), getPreferenceManager().getPrefMobile());
                                     spinner_dialog();
                                 } else {
                                     Toast.makeText(requireContext(), "Door already open ", Toast.LENGTH_SHORT).show();
@@ -104,7 +134,7 @@ public class home extends Fragment {
                     });
                     dialog.show();
                     dialogCheck();
-                }else {
+                } else {
                     Toast.makeText(requireContext(), "Door already open ", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -190,6 +220,8 @@ public class home extends Fragment {
                     }
                 }, 8800);
 
+                dialogCheck();
+                bleCall();
                 fragmentHomeBinding.drack.setBackground(getResources().getDrawable(R.drawable.round_bg));
                 fragmentHomeBinding.statusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_unlock_padlock_svgrepo_com));
                 fragmentHomeBinding.lite.setVisibility(View.INVISIBLE);
@@ -197,17 +229,13 @@ public class home extends Fragment {
                 fragmentHomeBinding.noteText.setVisibility(View.VISIBLE);
                 fragmentHomeBinding.noteText.setText("Locker is OPEN...");
                 fragmentHomeBinding.noteText.setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.flash));
-
             }
         }, 200);
     }
 
-
     private void playMedia() {
         mediaPlayer.stop();
     }
-
-
 
     /**
      * @return
@@ -240,6 +268,8 @@ public class home extends Fragment {
             if (data.equals("door_closed")) {
                 if (!TextUtils.isEmpty(receivedData)) {
                     if (receivedData.substring(0, 2).equals("65")) {
+                        dialogCheck();
+                        bleCall();
                         dialog_Spinner.dismiss();
                         fragmentHomeBinding.drack.setBackground(getResources().getDrawable(R.drawable.green_round_bg));
                         fragmentHomeBinding.statusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_lock_svgrepo_com));
@@ -254,6 +284,8 @@ public class home extends Fragment {
             if (data.equals("door_opened")) {
                 if (!TextUtils.isEmpty(receivedData)) {
                     if (receivedData.substring(0, 2).equals("64")) {
+                        dialogCheck();
+                        bleCall();
                         dialog_Spinner.dismiss();
                         fragmentHomeBinding.drack.setBackground(getResources().getDrawable(R.drawable.round_bg));
                         fragmentHomeBinding.statusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_unlock_padlock_svgrepo_com));
@@ -268,7 +300,7 @@ public class home extends Fragment {
 
             if (data.equals("locker_opened")) {
                 if (!TextUtils.isEmpty(receivedData)) {
-                    if (receivedData.substring(0, 2).equals("109")) {
+                    if (receivedData.substring(0, 2).equals("6E")) {
                         dialog_Spinner.dismiss();
                         firstVisible();
                     }

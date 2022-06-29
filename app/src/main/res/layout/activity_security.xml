@@ -31,10 +31,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/zillasalbbold"
             android:text="Security"
             android:textColor="@color/black"
-            android:textSize="20dp"
+            android:textSize="22sp"
             android:padding="10dp"
             app:layout_constraintStart_toEndOf="@+id/back"
             app:layout_constraintTop_toTopOf="@+id/back"
@@ -46,10 +46,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="5dp"
-            android:fontFamily="@font/poppins_light"
+            android:fontFamily="@font/lato"
             android:text="For More Secure"
             android:textColor="@color/grey1"
-            android:textSize="14sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/header" />
 
@@ -69,9 +69,9 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:textColor="@color/black"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="@font/lato"
                 android:text="Enable BioMetric"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:layout_width="0dp"
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="5dp"
-            android:fontFamily="@font/poppins_light"
+            android:fontFamily="@font/lato"
             android:text="Login Secure"
             android:textColor="@color/grey1"
             android:textSize="14sp"
@@ -113,9 +113,9 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:textColor="@color/black"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="@font/lato"
                 android:text="Enable Secure Mode"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:layout_width="0dp"
@@ -132,7 +132,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="5dp"
-            android:fontFamily="@font/poppins_light"
+            android:fontFamily="@font/lato"
             android:text="Locker Secure"
             android:textColor="@color/grey1"
             android:textSize="14sp"

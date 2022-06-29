@@ -6,12 +6,14 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.mdq.marinetechapp.R;
 import com.mdq.marinetechapp.databinding.ActivityFingerprintAuthenticationBinding;
+import com.mdq.utils.PreferenceManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -27,7 +29,9 @@ public class activity_fingerprint_authentication extends AppCompatActivity {
     TextView scan;
     final Handler mHandler=new Handler();
     ImageView right;
+    boolean finish=false;
     ActivityFingerprintAuthenticationBinding activityFingerprintAuthenticationBinding;
+    PreferenceManager preferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +54,12 @@ public class activity_fingerprint_authentication extends AppCompatActivity {
         con.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(activity_fingerprint_authentication.this, activity_profile_setup.class);
-                startActivity(intent);
+                if (finish) {
+                    Intent intent = new Intent(activity_fingerprint_authentication.this, activity_profile_setup.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(activity_fingerprint_authentication.this, "Biometric setup is not completed.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -87,6 +95,8 @@ public class activity_fingerprint_authentication extends AppCompatActivity {
                     public void run() {
                         scan.setText("scanning...");
                         if(progress==100){
+                            getPreferenceManager().setPrefLoginBiometric("yes");
+                            finish=true;
                             scan.setText("Hurray Completed");
                             right.setVisibility(View.VISIBLE);
                             fin.setVisibility(View.GONE);
@@ -98,9 +108,21 @@ public class activity_fingerprint_authentication extends AppCompatActivity {
                 if(progress==100){
                     timer.cancel();
                 }
-
             }
         };
         timer.schedule(task,1000,1000);
+    }
+
+
+    /**
+     * @return
+     * @brief initializing the preferenceManager from shared preference for local use in this activity
+     */
+    public PreferenceManager getPreferenceManager() {
+        if (preferenceManager == null) {
+            preferenceManager = PreferenceManager.getInstance();
+            preferenceManager.initialize(getApplicationContext());
+        }
+        return preferenceManager;
     }
 }

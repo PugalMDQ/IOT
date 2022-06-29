@@ -12,5 +12,6 @@ public class ApiClass {
     public static final String GENERATEOTP = "generateotp";
     public static final String VALIDATEOTP = "validateotp";
     public static final String MAC_ID = "macid";
+    public static final String FIREBASE_UID = "firebase";
 
 }

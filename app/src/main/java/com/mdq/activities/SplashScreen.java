@@ -12,11 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.mdq.marinetechapp.R;
 import com.mdq.marinetechapp.databinding.ActivitySplashScreenBinding;
+import com.mdq.utils.PreferenceManager;
 
 import pl.droidsonroids.gif.GifImageView;
 
 public class SplashScreen extends AppCompatActivity {
 
+    PreferenceManager preferenceManager;
     ActivitySplashScreenBinding activitySplashScreenBinding;
     GifImageView gifImageView;
     @Override
@@ -32,11 +34,35 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent=new Intent(SplashScreen.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
+                if(getPreferenceManager().getPrefSignUp()!=null) {
+                    if (getPreferenceManager().getPrefSignUp().equals("sanjai")) {
+                        Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Intent intent = new Intent(SplashScreen.this, EnterScreen.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }else {
+                    Intent intent = new Intent(SplashScreen.this, EnterScreen.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         },5900);
 
+    }
+
+    /**
+     * @return
+     * @brief initializing the preferenceManager from shared preference for local use in this activity
+     */
+    public PreferenceManager getPreferenceManager() {
+        if (preferenceManager == null) {
+            preferenceManager = PreferenceManager.getInstance();
+            preferenceManager.initialize(getApplicationContext());
+        }
+        return preferenceManager;
     }
 }

@@ -4,12 +4,34 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ResponseForLogin {
+
     @SerializedName("id")
     @Expose
     public String id;
-    @SerializedName("device_token")
+
+    @SerializedName("firebase_uid")
     @Expose
-    public String device_token;
+    public String firebase_uid;
+
+    @SerializedName("biometric")
+    @Expose
+    public String biometric;
+
+    public String getFirebase_uid() {
+        return firebase_uid;
+    }
+
+    public void setFirebase_uid(String firebase_uid) {
+        this.firebase_uid = firebase_uid;
+    }
+
+    public String getBiometric() {
+        return biometric;
+    }
+
+    public void setBiometric(String biometric) {
+        this.biometric = biometric;
+    }
 
     @SerializedName("mac_id")
     @Expose
@@ -48,11 +70,11 @@ public class ResponseForLogin {
     }
 
     public String getDevice_token() {
-        return device_token;
+        return firebase_uid;
     }
 
     public void setDevice_token(String device_token) {
-        this.device_token = device_token;
+        this.firebase_uid = device_token;
     }
 
     public String getId() {

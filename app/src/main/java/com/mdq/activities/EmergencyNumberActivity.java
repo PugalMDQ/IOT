@@ -30,7 +30,8 @@ public class EmergencyNumberActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(number.getText().toString().length()==10){
-                    startActivity(new Intent(EmergencyNumberActivity.this,HomeActivity.class));
+                    startActivity(new Intent(EmergencyNumberActivity.this,HomeActivity.class)
+                            .putExtra("from","signup"));
                 }else{
                     Toast.makeText(EmergencyNumberActivity.this, "Enter correct number", Toast.LENGTH_SHORT).show();
                 }

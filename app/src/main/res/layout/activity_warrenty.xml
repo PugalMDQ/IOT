@@ -32,10 +32,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/zillasalbbold"
             android:text="Warranty"
             android:textColor="@color/black"
-            android:textSize="22dp"
+            android:textSize="22sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/back" />
 
@@ -58,8 +58,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:textColor="@color/black"
-            android:textSize="13dp"
-            android:fontFamily="@font/poppins_regular"
+            android:textSize="14dp"
+            android:fontFamily="@font/lato"
             android:padding="16dp"
             android:text="               In contract law, a warranty is a promise which is not a condition of the contract or an innominate term: (1) it is a term and (2) which only entitles the innocent party to damages if it is breached:[1] i.e. the warranty is not true or the defaulting party does not perform the contract in accordance with the terms of the warranty. A warranty is not a guarantee. It is a mere promise. It may be enforced if it is breached by an award for the legal remedy of damages.A warranty is a term of a contract. Depending on the terms of the contract, a product warranty may cover a product such that a manufacturer provides a warranty to a consumer with which the manufacturer has no direct contractual relationship."
             app:layout_constraintTop_toBottomOf="@+id/Contant"

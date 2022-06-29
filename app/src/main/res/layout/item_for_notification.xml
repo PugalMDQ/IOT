@@ -16,10 +16,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="24dp"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/lato_bold"
             android:text="Today"
             android:textColor="@color/dark_blue"
-            android:textSize="16dp"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,10 +50,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/lato"
             android:text="Battery percentage"
             android:textColor="@color/black"
-            android:textSize="16dp"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/battery"
             app:layout_constraintTop_toTopOf="@+id/battery" />
 
@@ -63,11 +63,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:fontFamily="@font/poppins_light"
+            android:fontFamily="@font/lato_thin"
             android:text="Lorem Ipsum is simply dummy text
 of the printing and typesetting industry."
             android:textColor="@color/grey1"
-            android:textSize="12dp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/menu"
             app:layout_constraintStart_toEndOf="@+id/battery"
             app:layout_constraintTop_toBottomOf="@+id/status" />\
@@ -76,12 +76,12 @@ of the printing and typesetting industry."
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:text="10 min ago"
             android:textColor="@color/yellow"
             app:layout_constraintTop_toBottomOf="@+id/details"
             app:layout_constraintStart_toStartOf="@id/details"
-            android:fontFamily="@font/poppins_regular"/>
+            android:fontFamily="@font/lato_thin"/>
 
 
 

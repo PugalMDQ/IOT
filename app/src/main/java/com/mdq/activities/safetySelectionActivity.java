@@ -33,7 +33,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -41,6 +45,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mdq.adapters.UnConfigDeviceListAdapter;
 import com.mdq.interfaces.ConnectPosition;
 import com.mdq.interfaces.DeviceListInterface;
@@ -54,6 +60,7 @@ import com.mdq.utils.PreferenceManager;
 import com.mdq.utils.RequestPermission;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -92,7 +99,7 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
     Dialog locationDialog;
     Dialog dialogBluetooth;
     boolean bleCheck = true;
-
+    Dialog spinner_Connection;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,9 +117,11 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
 
         }
 
+        clicks();
         swipeRefreshLayout = findViewById(R.id.refresh);
         locationDialog = new Dialog(safetySelectionActivity.this, R.style.dialog_center);
         dialogBluetooth = new Dialog(safetySelectionActivity.this, R.style.dialog_center);
+        spinner_Connection = new Dialog(safetySelectionActivity.this, R.style.dialog_center);
 
         BluetoothCheck();
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(receiver, new IntentFilter("ble_data"));
@@ -124,7 +133,8 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
                     if (activitySafetySelectionBinding.check.isChecked()) {
                         if (openClose) {
                             if (FromLogin) {
-                                startActivity(new Intent(safetySelectionActivity.this, HomeActivity.class));
+                                startActivity(new Intent(safetySelectionActivity.this, HomeActivity.class)
+                                        .putExtra("from","login"));
                             } else {
                                 startActivity(new Intent(safetySelectionActivity.this, MobileRegistration.class));
                             }
@@ -149,16 +159,24 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
             }
         });
 
-        activitySafetySelectionBinding.TermsCondition.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(safetySelectionActivity.this, Term_Condition.class));
-            }
-        });
+
 
         initialize();
         accessOtherClass();
 
+    }
+
+    private void clicks() {
+        SpannableString spannableString = new SpannableString(getResources().getString(R.string.check));
+        ClickableSpan clickableSpan1 = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                        startActivity(new Intent(safetySelectionActivity.this, Term_Condition.class));
+            }
+        };
+        spannableString.setSpan(clickableSpan1, 63, 80, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        activitySafetySelectionBinding.TermsCondition.setText(spannableString);
+        activitySafetySelectionBinding.TermsCondition.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void BluetoothCheck() {
@@ -200,7 +218,6 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
         });
 
         dialogBluetooth.show();
-
     }
 
     private void checkGPSStatus() {
@@ -235,7 +252,7 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
         dialog_Spinner.setCanceledOnTouchOutside(false);
         progressBar = dialog_Spinner.findViewById(R.id.progress);
         textView = dialog_Spinner.findViewById(R.id.subText);
-        textView.setText("Please Open the VSafe Locker door.");
+        textView.setText("Please Open the V Safe Locker door.");
         dialog_Spinner.show();
 
         new Handler().postDelayed(new Runnable() {
@@ -261,11 +278,12 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
     }
 
     public static void setAdapter(ArrayList<String> deviceList, int position) {
+
         swipeRefreshLayout.setRefreshing(false);
         deviceListObjects.clear();
         deviceListDub = deviceList;
         if (deviceListDub.isEmpty()) {
-            activitySafetySelectionBinding.text.setText("Swipe down to scan your VSafe smart locker!");
+            activitySafetySelectionBinding.text.setText("Swipe down to scan your V Safe smart locker!");
         } else {
             activitySafetySelectionBinding.text.setVisibility(View.GONE);
         }
@@ -278,7 +296,7 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
     }
 
     private void refresh() {
-        activitySafetySelectionBinding.text.setText("Searching VSafe smart lockers...");
+        activitySafetySelectionBinding.text.setText("Searching V Safe smart lockers...");
         activitySafetySelectionBinding.text.setVisibility(VISIBLE);
         BleUtil.disconnect_tool();
         bleUtil.stopScanning();
@@ -316,7 +334,17 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
                     if (onClick) {
                         bleUtil.stopScanning();
                         bleUtil.connect_to_tool(bluetoothDevice);
+
+                        Connection_Dialog();
+                        Log.e("check_to_connect_device", bluetoothDevice.getName());
+
                         getPreferenceManager().setPrefBleDevice(bluetoothDevice);
+                        Gson gson = new Gson();
+                        String json = getPreferenceManager().getPrefBleDevice();
+                        Type type = new TypeToken<BluetoothDevice>() {
+                        }.getType();
+//                        BluetoothDevice bluetoothDevices = gson.fromJson(json, BluetoothDevice.class);
+//                        Log.e("check_to_connect_device123", bluetoothDevices.getName());
                         onClick = false;
                     }
                 }
@@ -326,6 +354,12 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
         } catch (Exception e) {
             Log.e("Exception", "", e);
         }
+    }
+
+    private void Connection_Dialog() {
+        spinner_Connection.setContentView(R.layout.spinner_connection);
+        spinner_Connection.setCancelable(false);
+        spinner_Connection.show();
     }
 
     private void accessOtherClass() {
@@ -383,9 +417,9 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
             if (data.equals("ble_device_connected")) {
                 Connected = true;
                 if (bleCheck) {
-                    if(from==null){
+                    if (from == null) {
                         bleUtil.pingCmd();
-                    }else {
+                    } else {
                         if (!from.equals("login")) {
                             bleUtil.pingCmd();
                         }
@@ -402,6 +436,11 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
                 if (!TextUtils.isEmpty(receivedData)) {
                     if (receivedData.substring(0, 2).equals("65")) {
                         openClose = false;
+                        if(spinner_Connection.isShowing()){
+                            Toast.makeText(context, "Connected.", Toast.LENGTH_SHORT).show();
+                        }
+                        spinner_Connection.dismiss();
+
                         if (bleCheck) {
                             bleUtil.pingCmd();
                             spinner_dialog();
@@ -411,8 +450,13 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
             }
 
             if (data.equals("door_opened")) {
+
                 if (!TextUtils.isEmpty(receivedData)) {
                     if (receivedData.substring(0, 2).equals("64")) {
+                        if(spinner_Connection.isShowing()){
+                            Toast.makeText(context, "Connected.", Toast.LENGTH_SHORT).show();
+                        }
+                        spinner_Connection.dismiss();
                         openClose = true;
                     }
                 }

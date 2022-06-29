@@ -30,17 +30,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="70dp"
             android:src="@drawable/logos"/>
-        
+
         <TextView
             android:id="@+id/TextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="300dp"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/lato"
             android:text="Mobile"
             android:textColor="@color/black"
-            android:textSize="14dp"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -54,13 +53,13 @@
             android:layout_marginRight="18sp"
             android:background="@drawable/email_back"
             android:hint="Enter mobile"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/lato"
             android:textColorHint="@color/grey"
             android:padding="19dp"
             android:maxLength="10"
             android:inputType="number"
             android:textColor="#1C1C1C"
-            android:textSize="12dp"
+            android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/TextEmail" />
 
@@ -70,10 +69,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/lato"
             android:text="Password"
             android:textColor="@color/black"
-            android:textSize="14dp"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email" />
@@ -93,9 +91,9 @@
             android:textColorHint="@color/grey"
             android:inputType="textPassword"
             android:padding="15dp"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/lato"
             android:textColor="#1C1C1C"
-            android:textSize="12sp"
+            android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/TextPassword" />
 
@@ -105,7 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginRight="18sp"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/lato"
             android:gravity="end"
             android:padding="4dp"
             android:text="Forgot password"
@@ -123,9 +121,9 @@
             android:elevation="20dp"
             android:layout_marginRight="18sp"
             android:background="@drawable/ripple_login_bg"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/lato"
             android:gravity="center"
-            android:padding="15dp"
+            android:padding="20dp"
             android:text="Log in"
             android:textColor="@color/white"
             android:textSize="16dp"
@@ -151,23 +149,23 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
-                android:fontFamily="@font/poppins_bold"
+                android:fontFamily="@font/lato"
                 android:gravity="end"
                 android:paddingTop="10dp"
                 android:text="Don't have an account?"
                 android:textColor="@color/grey"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/SignUP"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
-                android:fontFamily="@font/poppins_bold"
+                android:fontFamily="@font/lato_bold"
                 android:text=" sign up"
                 android:padding="10dp"
-                android:textColor="#05c8e5"
-                android:textSize="14dp" />
+                android:textColor="#257fc6"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -175,7 +173,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="V_0.6"
+                    android:text="V_0.7"
                     android:textColor="@color/black"
                     android:gravity="center"
                     app:layout_constraintTop_toBottomOf="@+id/l1"

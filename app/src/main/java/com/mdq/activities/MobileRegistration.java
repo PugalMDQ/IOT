@@ -74,13 +74,6 @@ public class MobileRegistration extends AppCompatActivity implements SetMac_IDRe
                 dialog_Spinner.setCanceledOnTouchOutside(false);
                 dialog_Spinner.show();
 
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        dialog_Spinner.dismiss();
-                        Toast.makeText(MobileRegistration.this, "Failed to validate UIN.", Toast.LENGTH_SHORT).show();
-                    }
-                },3000);
             }
         });
 
@@ -149,8 +142,7 @@ public class MobileRegistration extends AppCompatActivity implements SetMac_IDRe
                                 setMac_idViewModel.setMac_id(activityMobileRegisterBinding.UINKey.getText().toString().trim());
                                 setMac_idViewModel.setMacid_status("1");
                                 setMac_idViewModel.SetMAc_IDRequest();
-                                Intent intent = new Intent(MobileRegistration.this, fingerprintenable.class);
-                                startActivity(intent);
+
                                 dialog.dismiss();
 
                             }
@@ -182,6 +174,12 @@ public class MobileRegistration extends AppCompatActivity implements SetMac_IDRe
     @Override
     public void generateSetMAc_IDProcess(GenerateSetMac_IDResponseModel generateSetMac_idResponseModel) {
 
+        if(generateSetMac_idResponseModel.message.equals("Only 4 users can register per device")){
+            Toast.makeText(this, "Only 4 users can register with one device.", Toast.LENGTH_SHORT).show();
+        }else{
+            Intent intent = new Intent(MobileRegistration.this, fingerprintenable.class);
+            startActivity(intent);
+        }
     }
 
     @Override

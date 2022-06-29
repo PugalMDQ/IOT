@@ -116,7 +116,7 @@
                 android:textColor="@color/dark_blue"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                android:fontFamily="@font/poppins_bold"
+                android:fontFamily="@font/zillasalbbold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/circul" />
 
@@ -125,7 +125,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:text="Maxwell Jerry"
                 android:textColor="@color/dark_blue"
                 android:textSize="25dp"
                 android:visibility="gone"
@@ -135,10 +134,12 @@
 
             <LinearLayout
                 android:id="@+id/line"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@id/name1">
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/name1"
+                app:layout_constraintEnd_toEndOf="@+id/name">
 
                 <View
                     android:layout_width="77dp"
@@ -209,8 +210,8 @@
                 android:layout_height="wrap_content"
                 android:text="Locker is OPEN..."
                 android:textColor="@color/dark_blue"
-                android:fontFamily="@font/poppins_bold"
-                android:textSize="18sp"
+                android:fontFamily="@font/lato_bold"
+                android:textSize="16sp"
                 android:layout_marginTop="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -30,11 +31,12 @@ public class activity_profile_setup extends AppCompatActivity {
     PreferenceManager preferenceManager;
     BleUtil bleUtil;
     Dialog dialog_Spinner;
-
+    String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityProfileSetupBinding = ActivityProfileSetupBinding.inflate(getLayoutInflater());
+         id  = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
 
 
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(receiver,new IntentFilter("ble_data"));
@@ -84,9 +86,7 @@ public class activity_profile_setup extends AppCompatActivity {
                 getPreferenceManager().setPrefLockerPin(activityProfileSetupBinding.lockerpin.getText().toString());
                 getPreferenceManager().setPrefSosNum(activityProfileSetupBinding.SosPin.getText().toString());
 
-                bleUtil.MobileKeyRegister(getPreferenceManager().getPrefMobile(),activityProfileSetupBinding.lockerpin.getText().toString(),activityProfileSetupBinding.SosPin.getText().toString());
-
-
+                bleUtil.MobileKeyRegister(id,getPreferenceManager().getPrefMobile(),activityProfileSetupBinding.lockerpin.getText().toString(),activityProfileSetupBinding.SosPin.getText().toString());
 
                 dialog_Spinner = new Dialog(activity_profile_setup.this, R.style.dialog_center);
                 dialog_Spinner.setContentView(R.layout.dialog_spinner);
@@ -94,14 +94,6 @@ public class activity_profile_setup extends AppCompatActivity {
                 dialog_Spinner.setCanceledOnTouchOutside(false);
                 textView.setText("Setup PIN and SOS PIN...");
                 dialog_Spinner.show();
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        dialog_Spinner.dismiss();
-                        Toast.makeText(activity_profile_setup.this, "Failed to validate UIN.", Toast.LENGTH_SHORT).show();
-                    }
-                },3000);
 
             }
         });

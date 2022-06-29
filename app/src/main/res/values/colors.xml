@@ -23,7 +23,7 @@
 
     <color name="blue">#8CCCE7</color>
 <!--    <color name="dark_blue">#3397D2</color>-->
-    <color name="dark_blue">#05c8e5</color>
+    <color name="dark_blue">#257fc6</color>
     <color name="grey">#9E9D9D</color>
     <color name="grey1">#7B7890</color>
     <color name="yellow">#FFBE10</color>
@@ -32,5 +32,6 @@
     <color name="medium_green">#BBFFD3</color>
     <color name="status_grey">#F5F5F5</color>
     <color name="Sky_Blue">#51fadb</color>
+    <color name="app_Color">#257fc6</color>
 
 </resources>

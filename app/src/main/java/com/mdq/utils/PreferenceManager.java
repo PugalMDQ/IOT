@@ -44,8 +44,11 @@ public class PreferenceManager {
 
     private static final String PREF_BLE_DEVICE = "PREF_BLE_DEVICE";
 
-    private static PreferenceManager mInstance;
+    private static final String PREF_SIGN_UP = "PREF_SIGN_UP";
 
+    private static final String PREF_LOGIN_BIOMETRIC = "PREF_LOGIN_BIOMETRIC";
+
+    private static PreferenceManager mInstance;
 
     public void initialize(Context context) {
         this.mContext = context;
@@ -141,6 +144,15 @@ public class PreferenceManager {
         return sharedPreferences.getString(PREF_SOS_NUM, null);
     }
 
+    public void setPrefLoginBiometric(String Token) {
+        editor.putString(PREF_LOGIN_BIOMETRIC, Token);
+        editor.commit();
+    }
+
+    public String getPrefLoginBiometric() {
+        return sharedPreferences.getString(PREF_LOGIN_BIOMETRIC, "no");
+    }
+
     public void setPrefBleConnected(String Token) {
         editor.putString(PREF_BLE_CONNECTED, Token);
         editor.commit();
@@ -157,6 +169,15 @@ public class PreferenceManager {
 
     public String getPrefLockerPin() {
         return sharedPreferences.getString(PREF_LOCKER_PIN, null);
+    }
+
+    public void setPrefSignUp(String Token) {
+        editor.putString(PREF_SIGN_UP, Token);
+        editor.commit();
+    }
+
+    public String getPrefSignUp() {
+        return sharedPreferences.getString(PREF_SIGN_UP, null);
     }
 
     public void setPrefId(String Token) {

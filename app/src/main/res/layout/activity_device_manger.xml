@@ -39,10 +39,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
-                    android:fontFamily="@font/poppins_bold"
+                    android:fontFamily="@font/zillasalbbold"
                     android:text="Device Manager"
                     android:textColor="@color/black"
-                    android:textSize="20dp"
+                    android:textSize="22sp"
                     android:padding="10dp"
                     app:layout_constraintStart_toEndOf="@+id/back"
                     app:layout_constraintTop_toTopOf="@+id/back"
@@ -54,10 +54,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
-                    android:fontFamily="@font/poppins_light"
+                    android:fontFamily="@font/lato"
                     android:text="@string/History"
                     android:textColor="@color/grey1"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/header" />
 
@@ -81,15 +81,14 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:tint="@color/dark_blue"
                         />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_bold"
+                        android:fontFamily="@font/zillaslabmedium"
                         android:text="Wifi Configure"
-                        android:textSize="12sp"
+                        android:textSize="16sp"
                         android:gravity="center"
                         app:layout_constraintTop_toBottomOf="@+id/img"
                         android:textColor="@color/black"
@@ -118,15 +117,15 @@
                         android:src="@drawable/sos_pin_change"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:tint="@color/dark_blue" />
+                       />
 
                     <TextView
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_bold"
+                        android:fontFamily="@font/zillaslabmedium"
                         android:text="SOS Pin Change"
-                        android:textSize="12sp"
+                        android:textSize="16sp"
                         android:gravity="center"
                         android:textColor="@color/black"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -162,9 +161,9 @@
                         app:layout_constraintTop_toBottomOf="@+id/img3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_bold"
+                        android:fontFamily="@font/zillaslabmedium"
                         android:text="Security"
-                        android:textSize="12sp"
+                        android:textSize="16sp"
                         android:gravity="center"
                         android:textColor="@color/black"
                         app:layout_constraintBottom_toBottomOf="parent" />
@@ -196,10 +195,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_bold"
+                        android:fontFamily="@font/zillaslabmedium"
                         android:text="Mechanical Key"
                         android:textColor="@color/black"
-                        android:textSize="12sp"
+                        android:textSize="16sp"
                         android:gravity="center"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -228,15 +227,15 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:tint="@color/dark_blue" />
+                        />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_bold"
+                        android:fontFamily="@font/zillaslabmedium"
                         android:text="Locker PIN Change"
                         android:textColor="@color/black"
-                        android:textSize="12sp"
+                        android:textSize="16sp"
                         android:gravity="center"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/img5" />

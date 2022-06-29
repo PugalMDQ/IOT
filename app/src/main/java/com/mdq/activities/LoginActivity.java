@@ -3,6 +3,7 @@ package com.mdq.activities;
 import static android.Manifest.permission.READ_PHONE_NUMBERS;
 import static android.Manifest.permission.READ_PHONE_STATE;
 import static android.Manifest.permission.READ_SMS;
+import static android.content.ContentValues.TAG;
 
 import android.Manifest;
 import android.bluetooth.BluetoothDevice;
@@ -13,6 +14,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
@@ -27,20 +29,27 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.mdq.ViewModel.FireBase_UIDViewModel;
 import com.mdq.ViewModel.LoginRequestViewModel;
 import com.mdq.ViewModel.VerificationKeyViewModel;
 import com.mdq.enums.MessageViewType;
 import com.mdq.enums.ViewType;
+import com.mdq.interfaces.ViewResponseInterface.FireBase_UIDResponseInterface;
 import com.mdq.interfaces.ViewResponseInterface.LoginResponseInterface;
 import com.mdq.interfaces.ViewResponseInterface.VerificationKeyResponseInterface;
 import com.mdq.marinetechapp.R;
 import com.mdq.marinetechapp.databinding.ActivityLoginBinding;
 import com.mdq.pojo.jsonresponse.ErrorBody;
+import com.mdq.pojo.jsonresponse.FireBase_UIDResponseModel;
 import com.mdq.pojo.jsonresponse.GenerateLoginResponseModel;
 import com.mdq.pojo.jsonresponse.GenerateVerificationKeyResponseModel;
 import com.mdq.utils.BleUtil;
@@ -49,7 +58,7 @@ import com.mdq.utils.PreferenceManager;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class LoginActivity extends AppCompatActivity implements VerificationKeyResponseInterface, LoginResponseInterface {
+public class LoginActivity extends AppCompatActivity implements VerificationKeyResponseInterface, LoginResponseInterface, FireBase_UIDResponseInterface {
 
     ActivityLoginBinding getActivityLoginBinding;
     boolean passwordVisibility;
@@ -61,6 +70,7 @@ public class LoginActivity extends AppCompatActivity implements VerificationKeyR
     ConnectivityManager connectivityManager;
     String SIMmobileNum1;
     String SIMmobileNum2;
+    FireBase_UIDViewModel fireBase_uidViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +80,7 @@ public class LoginActivity extends AppCompatActivity implements VerificationKeyR
         password = findViewById(R.id.password);
         loginRequestViewModel = new LoginRequestViewModel(this, this);
         verificationKeyViewModel = new VerificationKeyViewModel(this, this);
+        fireBase_uidViewModel = new FireBase_UIDViewModel(this, this);
 
         connectivityManager = (ConnectivityManager) getApplicationContext()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -82,10 +93,12 @@ public class LoginActivity extends AppCompatActivity implements VerificationKeyR
         GetNumber();
         secondNumber();
 
+        String id = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+
+        Log.i("id", id);
     }
 
     private void verification() {
-
         if ((connectivityManager
                 .getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager
                 .getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED)
@@ -218,10 +231,9 @@ public class LoginActivity extends AppCompatActivity implements VerificationKeyR
     @Override
     public void generateLoginProcessed(GenerateLoginResponseModel generateLoginResponseModel) {
 
-        Toast.makeText(getApplicationContext(), "" + generateLoginResponseModel.message, Toast.LENGTH_SHORT).show();
-
         if (generateLoginResponseModel.getMessage().equals("Logged in successfully")) {
-
+            Toast.makeText(getApplicationContext(), "" + generateLoginResponseModel.message, Toast.LENGTH_SHORT).show();
+            fireBaseCall();
             if (generateLoginResponseModel.getId().get(0).getId() != null && generateLoginResponseModel.getToken() != null) {
                 getPreferenceManager().setPrefId(generateLoginResponseModel.getId().get(0).getId());
                 getPreferenceManager().setPrefToken(generateLoginResponseModel.getToken());
@@ -229,30 +241,47 @@ public class LoginActivity extends AppCompatActivity implements VerificationKeyR
 
             getPreferenceManager().setPrefMobile(getActivityLoginBinding.email.getText().toString().trim());
             getPreferenceManager().setPrefUsername(generateLoginResponseModel.getId().get(0).getUsername().trim());
+//
+//            BleUtil bleUtil = new BleUtil(LoginActivity.this);
+//            Gson gson = new Gson();
+//            String json = getPreferenceManager().getPrefBleDevice();
+//            Type type = new TypeToken<BluetoothDevice>() {
+//            }.getType();
+//            BluetoothDevice bluetoothDevice = gson.fromJson(json, BluetoothDevice.class);
 
-            BleUtil bleUtil=new BleUtil(getApplicationContext());
-            Gson gson = new Gson();
-            String json =getPreferenceManager().getPrefBleDevice();
+//            bleUtil.connect_to_tool(bluetoothDevice);
 
-            Type type = new TypeToken<BluetoothDevice>(){}.getType();
-            BluetoothDevice bluetoothDevice= gson.fromJson(json, type);
-            bleUtil.connect_to_tool(bluetoothDevice);
+            if (getPreferenceManager().getPrefLoginBiometric().equals("yes")) {
 
-            if (generateLoginResponseModel.getId().get(0).getMacid_status().trim().equals("1")) {
-                if(bluetoothDevice!=null) {
+                if (generateLoginResponseModel.getId().get(0).getMacid_status().trim().equals("1")) {
                     getPreferenceManager().setPrefUinNum(generateLoginResponseModel.getId().get(0).getMac_id());
-                    startActivity(new Intent(getApplicationContext(), HomeActivity.class)
+                    startActivity(new Intent(getApplicationContext(), BioMetrix.class)
                             .putExtra("from", "login"));
                     finish();
-                }else{
-                    startActivity(new Intent(getApplicationContext(), safetySelectionActivity.class));
+                } else {
+                    startActivity(new Intent(getApplicationContext(), BioMetrix.class));
                     finish();
                 }
             } else {
-                startActivity(new Intent(getApplicationContext(), safetySelectionActivity.class));
-                finish();
+
+                if (generateLoginResponseModel.getId().get(0).getMacid_status().trim().equals("1")) {
+                    getPreferenceManager().setPrefUinNum(generateLoginResponseModel.getId().get(0).getMac_id());
+                    startActivity(new Intent(getApplicationContext(), safetySelectionActivity.class)
+                            .putExtra("from", "login"));
+                    finish();
+                } else {
+                    startActivity(new Intent(getApplicationContext(), safetySelectionActivity.class));
+                    finish();
+                }
             }
+        } else {
+            Toast.makeText(this, "Login failed. check with V Safe admin team. ", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void generateFireBase_UIDCallProcessed(FireBase_UIDResponseModel fireBase_uidResponseModel) {
+
     }
 
     @Override
@@ -345,6 +374,7 @@ public class LoginActivity extends AppCompatActivity implements VerificationKeyR
                 }
                 String phoneNumber = telephonyManager.getLine1Number();
 
+                fireBaseCall();
                 try {
 
                     if (phoneNumber.trim().length() == 13) {
@@ -354,8 +384,9 @@ public class LoginActivity extends AppCompatActivity implements VerificationKeyR
                     } else if (phoneNumber.trim().length() == 10) {
                         SIMmobileNum1 = phoneNumber.trim();
                     }
-                }catch (Exception e){
-                    Log.i("exception",e.toString());
+                    getActivityLoginBinding.email.setText(SIMmobileNum1);
+                } catch (Exception e) {
+                    Log.i("exception", e.toString());
                     Toast.makeText(this, "Please insert SIM", Toast.LENGTH_LONG).show();
                 }
                 secondNumber();
@@ -364,4 +395,30 @@ public class LoginActivity extends AppCompatActivity implements VerificationKeyR
                 throw new IllegalStateException("Unexpected value: " + requestCode);
         }
     }
+
+    private void fireBaseCall() {
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+
+
+                        fireBase_uidViewModel.setFirebase_uid(token);
+                        fireBase_uidViewModel.setMobile(getPreferenceManager().getPrefMobile().trim());
+                        fireBase_uidViewModel.FireBase_UIDcall();
+
+                        // Log and toast
+                    }
+                });
+
+    }
+
 }

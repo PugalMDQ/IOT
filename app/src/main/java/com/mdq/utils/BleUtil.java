@@ -195,7 +195,6 @@ public class BleUtil {
         try {
             connectBle(bluetoothDevice);
             Log.e("Connected", "");
-            Toast.makeText(context, "Connected...", Toast.LENGTH_LONG).show();
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
@@ -212,7 +211,7 @@ public class BleUtil {
                 @RequiresApi(api = Build.VERSION_CODES.M)
                 @Override
                 public void run() {
-                    mBluetoothGatt = bluetoothDevice.connectGatt(context, false, gattCallback);
+                    mBluetoothGatt = bluetoothDevice.connectGatt(context, true, gattCallback);
                 }
             }, 60);
         } catch (Exception e) {
@@ -259,6 +258,7 @@ public class BleUtil {
                     e.printStackTrace();
                     Log.e("NullPointerException", "", e);
                 }
+
                 if (gatt != null) {
                     gatt.close();
                     gatt = null;
@@ -442,7 +442,16 @@ public class BleUtil {
             intentVal.putExtra("receivedData", receivedData);
             LocalBroadcastManager.getInstance(context).sendBroadcast(intentVal);
 
-        } else if (firstTwo.equals("109")) {
+        } else if (firstTwo.equals("106")) {
+
+            //WIFI configuration success message
+
+            Intent intentVal = new Intent(AppConstants.BLE_DATA); //FILTER is a stringto to identify this intent
+            intentVal.putExtra("val", "wifi_configured");
+            intentVal.putExtra("receivedData", receivedData);
+            LocalBroadcastManager.getInstance(context).sendBroadcast(intentVal);
+
+        } else if (firstTwo.equals("6E")) {
 
             //Validated the user
             Intent intentVal = new Intent(AppConstants.BLE_DATA); //FILTER is a stringto to identify this intent
@@ -672,10 +681,11 @@ public class BleUtil {
         }
     }
 
-    public void MobileKeyRegister(String num, String L_PIN, String SOS_PIN) {
+    public void MobileKeyRegister(String Device_Id, String num, String L_PIN, String SOS_PIN) {
         try {
             Log.e(AppConstants.ENTER, "MobileKeyRegister");
-            String pair = SETUP_LOCKER + Helper.String_to_hex(L_PIN) + Helper.String_to_hex(SOS_PIN) + Helper.String_to_hex(num);
+
+            String pair = SETUP_LOCKER + Helper.String_to_hex(L_PIN) + Helper.String_to_hex(SOS_PIN) + Helper.String_to_hex(Device_Id)+ Helper.String_to_hex(num);
 
             Log.e("MobileKeyRegister", pair);
             commandToPair = pair;
@@ -689,10 +699,10 @@ public class BleUtil {
         }
     }
 
-    public void Open_Locker(String num) {
+    public void Open_Locker(String pin, String num) {
         try {
             Log.e(AppConstants.ENTER, "MobileKeyRegister");
-            String pair = OPEN_CLOSE_LOCKER + Helper.String_to_hex(num);
+            String pair = OPEN_CLOSE_LOCKER + Helper.String_to_hex(num)+ Helper.String_to_hex(pin);
 
             Log.e("MobileKeyRegister", pair);
             commandToPair = pair;
@@ -909,7 +919,7 @@ public class BleUtil {
                                     mBluetoothGatt.readCharacteristic(characteristic1);
                                     Log.e("READ_CALL", "READ_CALL");
                                 }
-                            }, 2000);
+                            }, 5000);
                         } catch (Exception e) {
                             Log.e("Exception", "" + e);
                         }

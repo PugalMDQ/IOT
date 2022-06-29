@@ -98,8 +98,8 @@ public class DeviceManger_activity extends AppCompatActivity {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (pin.getText().length() == 4) {
-                    if (getPreferenceManager().getPrefLockerPin().equals(pin)) {
+                if (pin.getText().toString().trim().length() == 4) {
+                    if (getPreferenceManager().getPrefLockerPin().trim().equals(pin.getText().toString().trim())) {
                         if (name.equals("MECH")) {
                             startActivity(new Intent(DeviceManger_activity.this, Mechanical_key.class));
                         } else if (name.equals("SOS")) {
@@ -111,7 +111,6 @@ public class DeviceManger_activity extends AppCompatActivity {
                     }else{
                         Toast.makeText(DeviceManger_activity.this, "Password mismatch", Toast.LENGTH_SHORT).show();
                     }
-
                 } else {
                     Toast.makeText(DeviceManger_activity.this, "Enter correct PIN", Toast.LENGTH_SHORT).show();
                 }

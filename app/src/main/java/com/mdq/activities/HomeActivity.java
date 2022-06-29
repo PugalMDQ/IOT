@@ -8,6 +8,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -27,22 +28,29 @@ public class HomeActivity extends AppCompatActivity {
     CurvedBottomNavigation curvedBottomNavigation;
     ActivityHomeBinding activityHomeBinding;
     private FragmentManager fragmentManager;
+    String from;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityHomeBinding=ActivityHomeBinding.inflate(getLayoutInflater());
+        activityHomeBinding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(activityHomeBinding.getRoot());
 
         getWindow().setStatusBarColor(getResources().getColor(R.color.white));
 
-        curvedBottomNavigation = findViewById(R.id.bottomNavigation);
-        fragmentManager=getSupportFragmentManager();
+        try {
+            Intent intent = getIntent();
+            from = intent.getStringExtra("from");
+        } catch (Exception e) {
 
-        curvedBottomNavigation.add(new CurvedBottomNavigation.Model(1,"Log", R.drawable.ic_icons8_clock_96));
+        }
+
+        curvedBottomNavigation = findViewById(R.id.bottomNavigation);
+        fragmentManager = getSupportFragmentManager();
+        curvedBottomNavigation.add(new CurvedBottomNavigation.Model(1, "Log", R.drawable.ic_icons8_clock_96));
         curvedBottomNavigation.add(new CurvedBottomNavigation.Model(2, "Home", R.drawable.ic_home_svgrepo_com));
-        curvedBottomNavigation.add(new CurvedBottomNavigation.Model(3,"Settings",R.drawable.ic_icons8_settings));
-        curvedBottomNavigation.show(2,true);
+        curvedBottomNavigation.add(new CurvedBottomNavigation.Model(3, "Settings", R.drawable.ic_icons8_settings));
+        curvedBottomNavigation.show(2, true);
         loadFragment(new home());
 
 
@@ -67,6 +75,12 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void loadFragment(Fragment fragment) {
+        if(from.trim().equals("login") ||from.trim().equals("signup")  ) {
+            Bundle bundle = new Bundle();
+            String myMessage = from;
+            bundle.putString("message", myMessage);
+            fragment.setArguments(bundle);
+        }
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_home_fragment, fragment);
         fragmentTransaction.addToBackStack(null);

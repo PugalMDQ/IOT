@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
@@ -148,10 +149,12 @@ public class MobileNumActivity extends AppCompatActivity implements numberValida
                     } else if (phoneNumber.trim().length() == 10) {
                         SIMmobileNum1 = phoneNumber.trim();
                     }
+
+                    Log.i("simsimsim",phoneNumber);
                     dialog();
 
-                }catch (Exception e){
-                    Log.i("exception",e.toString());
+                } catch (Exception e) {
+                    Log.i("exception", e.toString());
                     Toast.makeText(this, "Please insert SIM", Toast.LENGTH_LONG).show();
                 }
 //                GetNumber();
@@ -274,10 +277,13 @@ public class MobileNumActivity extends AppCompatActivity implements numberValida
     public void generateLoginProcessed(GenerateNumberValidationResponseModel generateNumberValidationResponseModel) {
 
         if (generateNumberValidationResponseModel.getMessage().equals("Mobile number verified successfully")) {
+
             generateOTPRequestViewModel.setMobile(activityMobileNumBinding.mobile.getText().toString().trim());
             generateOTPRequestViewModel.generateOTPRequest();
             getPreferenceManager().setPrefMobile(activityMobileNumBinding.mobile.getText().toString().trim());
+            dialog_Spinner.dismiss();
             startActivity(new Intent(MobileNumActivity.this, OTPVerification.class));
+
         } else {
             progressBar.setVisibility(View.GONE);
             textView.setText("Mobile number already exist!");

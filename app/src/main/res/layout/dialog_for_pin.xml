@@ -22,6 +22,7 @@
             android:src="@drawable/mechanical_key"
             android:layout_marginTop="16dp"
             android:layout_marginLeft="16dp"
+            android:layout_marginRight="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,7 +34,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:layout_marginTop="16dp"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/lato"
             android:background="@drawable/box"
             android:gravity="center"
             android:hint="Enter PIN"
@@ -45,20 +46,8 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/subText" />
+            app:layout_constraintTop_toBottomOf="@+id/img" />
 
-        <TextView
-            android:id="@+id/subText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Enter the PIN to unlock the Locker."
-            android:gravity="center"
-            android:fontFamily="@font/poppins_regular"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img"
-            />
         <TextView
             android:id="@+id/textView24"
             android:layout_width="wrap_content"
@@ -70,10 +59,11 @@
             android:background="@drawable/cancel_btg"
             android:paddingLeft="25dp"
             android:paddingTop="10dp"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/lato"
             android:paddingRight="25dp"
             android:paddingBottom="10dp"
             android:text="OK"
+            android:textSize="16sp"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

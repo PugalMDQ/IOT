@@ -1,5 +1,7 @@
 package com.mdq.http;
 
+import com.mdq.pojo.jsonrequest.DeleteRequestModel;
+import com.mdq.pojo.jsonrequest.FireBase_UIDRequestModel;
 import com.mdq.pojo.jsonrequest.GenerateLoginRequestModel;
 import com.mdq.pojo.jsonrequest.GenerateNumberValidationRequestModel;
 import com.mdq.pojo.jsonrequest.GenerateOTPRequestModel;
@@ -7,6 +9,8 @@ import com.mdq.pojo.jsonrequest.GenerateRegisterRequestModel;
 import com.mdq.pojo.jsonrequest.GenerateSetMAc_IDRequestModel;
 import com.mdq.pojo.jsonrequest.GenerateValidateOTPRequestModel;
 import com.mdq.pojo.jsonrequest.GenerateVerificationKeyRequestModel;
+import com.mdq.pojo.jsonresponse.DeleteResponseModel;
+import com.mdq.pojo.jsonresponse.FireBase_UIDResponseModel;
 import com.mdq.pojo.jsonresponse.GenerateLoginResponseModel;
 import com.mdq.pojo.jsonresponse.GenerateNumberValidationResponseModel;
 import com.mdq.pojo.jsonresponse.GenerateOTPResponseModel;
@@ -42,5 +46,11 @@ public interface ApiInterface {
 
     @POST
     Call<GenerateSetMac_IDResponseModel> SetMAc_IDCall(@Url String url, @Body GenerateSetMAc_IDRequestModel generateValidateOTPRequestModel);
+
+    @POST
+    Call<DeleteResponseModel> DELETE(@Url String url, @Body DeleteRequestModel deleteRequestModele);
+
+    @POST
+    Call<FireBase_UIDResponseModel> FireBase_UID(@Url String url, @Body FireBase_UIDRequestModel fireBase_uidRequestModel);
 
 }
