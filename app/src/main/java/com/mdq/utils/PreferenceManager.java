@@ -48,6 +48,8 @@ public class PreferenceManager {
 
     private static final String PREF_LOGIN_BIOMETRIC = "PREF_LOGIN_BIOMETRIC";
 
+    private static final String PREF_MACID_STATUS = "PREF_MACID_STATUS";
+
     private static PreferenceManager mInstance;
 
     public void initialize(Context context) {
@@ -151,6 +153,15 @@ public class PreferenceManager {
 
     public String getPrefLoginBiometric() {
         return sharedPreferences.getString(PREF_LOGIN_BIOMETRIC, "no");
+    }
+
+    public void setPrefMacidStatus(String Token) {
+        editor.putString(PREF_MACID_STATUS, Token);
+        editor.commit();
+    }
+
+    public String getPrefMacidStatus() {
+        return sharedPreferences.getString(PREF_MACID_STATUS, "0");
     }
 
     public void setPrefBleConnected(String Token) {

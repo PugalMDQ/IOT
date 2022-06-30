@@ -132,12 +132,19 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
                 if (Connected) {
                     if (activitySafetySelectionBinding.check.isChecked()) {
                         if (openClose) {
-                            if (FromLogin) {
+                            if(getPreferenceManager().getPrefMacidStatus().equals("4")){
                                 startActivity(new Intent(safetySelectionActivity.this, HomeActivity.class)
                                         .putExtra("from","login"));
-                            } else {
+                            } else if(getPreferenceManager().getPrefMacidStatus().equals("3")){
+                                startActivity(new Intent(safetySelectionActivity.this, EmergencyNumberActivity.class));
+                            } else if(getPreferenceManager().getPrefMacidStatus().equals("2")){
+                                startActivity(new Intent(safetySelectionActivity.this, Wifi_configuration.class));
+                            } else if(getPreferenceManager().getPrefMacidStatus().equals("1")){
+                                startActivity(new Intent(safetySelectionActivity.this, fingerprintenable.class));
+                            } else if(getPreferenceManager().getPrefMacidStatus().equals("0")){
                                 startActivity(new Intent(safetySelectionActivity.this, MobileRegistration.class));
                             }
+
                         } else {
                             if (bleCheck) {
                                 bleUtil.pingCmd();
@@ -422,6 +429,9 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
                     } else {
                         if (!from.equals("login")) {
                             bleUtil.pingCmd();
+                        }else{
+                            Toast.makeText(context, "Connected", Toast.LENGTH_SHORT).show();
+                            spinner_Connection.dismiss();
                         }
                     }
                 }

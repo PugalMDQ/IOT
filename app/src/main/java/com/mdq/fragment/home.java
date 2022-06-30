@@ -10,17 +10,11 @@ import android.graphics.Typeface;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import android.os.Handler;
 import android.provider.Settings;
-import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -33,9 +27,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.mdq.activities.Notificationactivity;
-import com.mdq.activities.safetySelectionActivity;
 import com.mdq.marinetechapp.R;
 import com.mdq.marinetechapp.databinding.FragmentHomeBinding;
 import com.mdq.utils.BleUtil;
@@ -57,6 +49,7 @@ public class home extends Fragment {
     boolean dialogs = true;
     Dialog dialog;
     Dialog dialog_Spinner;
+    Dialog dialog_Spinner_Locker_status;
     String from;
 
     @Override
@@ -82,6 +75,7 @@ public class home extends Fragment {
         locationDialog = new Dialog(requireContext(), R.style.dialog_center);
         dialogBluetooth = new Dialog(requireContext(), R.style.dialog_center);
         dialog_Spinner = new Dialog(requireContext(), R.style.dialog_center);
+        dialog_Spinner_Locker_status = new Dialog(requireContext(), R.style.dialog_center);
 
         gatheringLockerStatusDialog();
 
@@ -104,7 +98,7 @@ public class home extends Fragment {
         dialogCheck();
         SpannableString ss = new SpannableString("Hello "+getPreferenceManager().getPrefUsername().trim());
         StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
-        ss.setSpan(boldSpan, 7, getPreferenceManager().getPrefUsername().trim().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(boldSpan, 7, 6+getPreferenceManager().getPrefUsername().trim().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         fragmentHomeBinding.name.setText(ss);
 
         fragmentHomeBinding.drack.setOnClickListener(new View.OnClickListener() {
@@ -158,12 +152,9 @@ public class home extends Fragment {
     }
 
     private void gatheringLockerStatusDialog() {
-        dialog_Spinner.setContentView(R.layout.dialog_spinner);
-        dialog_Spinner.setCanceledOnTouchOutside(false);
-        ProgressBar progressBar = dialog_Spinner.findViewById(R.id.progress);
-        TextView textView = dialog_Spinner.findViewById(R.id.subText);
-        textView.setText("Gathering Locker Status...");
-        dialog_Spinner.show();
+        dialog_Spinner_Locker_status.setContentView(R.layout.dialog_gathering_locker_status);
+        dialog_Spinner_Locker_status.setCanceledOnTouchOutside(false);
+        dialog_Spinner_Locker_status.show();
     }
 
     private void bleCall() {
@@ -270,7 +261,7 @@ public class home extends Fragment {
                     if (receivedData.substring(0, 2).equals("65")) {
                         dialogCheck();
                         bleCall();
-                        dialog_Spinner.dismiss();
+                        dialog_Spinner_Locker_status.dismiss();
                         fragmentHomeBinding.drack.setBackground(getResources().getDrawable(R.drawable.green_round_bg));
                         fragmentHomeBinding.statusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_lock_svgrepo_com));
                         openClose = false;
@@ -286,7 +277,7 @@ public class home extends Fragment {
                     if (receivedData.substring(0, 2).equals("64")) {
                         dialogCheck();
                         bleCall();
-                        dialog_Spinner.dismiss();
+                        dialog_Spinner_Locker_status.dismiss();
                         fragmentHomeBinding.drack.setBackground(getResources().getDrawable(R.drawable.round_bg));
                         fragmentHomeBinding.statusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_unlock_padlock_svgrepo_com));
                         openClose = true;

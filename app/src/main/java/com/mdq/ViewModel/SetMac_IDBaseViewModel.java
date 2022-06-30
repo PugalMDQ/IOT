@@ -5,7 +5,6 @@ public class SetMac_IDBaseViewModel {
 
     public String mobile;
     public String mac_id;
-    public String macid_status;
 
     public String getMobile() {
         return mobile;
@@ -23,11 +22,4 @@ public class SetMac_IDBaseViewModel {
         this.mac_id = mac_id;
     }
 
-    public String getMacid_status() {
-        return macid_status;
-    }
-
-    public void setMacid_status(String macid_status) {
-        this.macid_status = macid_status;
-    }
 }

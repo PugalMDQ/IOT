@@ -22,11 +22,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.mdq.ViewModel.FireBase_UIDViewModel;
 import com.mdq.ViewModel.RegisterRequestViewModel;
 import com.mdq.enums.MessageViewType;
@@ -275,6 +277,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterRespo
 //        fireBase_uidViewModel.setMobile(getPreferenceManager().getPrefMobile().trim());
 //        fireBase_uidViewModel.FireBase_UIDcall();
 
+        subscribeToTopic();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("/users/" + uid);
         User user;
         if (profileImageUrl == null) {
@@ -296,5 +299,23 @@ public class RegisterActivity extends AppCompatActivity implements RegisterRespo
                     }
                 });
     }
+    private void subscribeToTopic() {
+        final String FCM_TOPIC = "PUSH_NOTIFICATIONS";
 
+        FirebaseMessaging.getInstance().subscribeToTopic(FCM_TOPIC)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        //saved settings
+                        //Toast.makeText(SettingsActivity.this, ""+enabledMessage, Toast.LENGTH_SHORT).show();
+                        //notificationStatusTv.setText(enabledMessage);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(RegisterActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 }

@@ -13,9 +13,11 @@
         android:background="@color/white"
         tools:context="com.mdq.activities.fingerprintenable">
 
-        <androidx.core.widget.NestedScrollView
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -171,7 +173,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginLeft="16dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="75dp"
                     android:layout_marginRight="16sp"
                     android:background="@drawable/ripple_cancel"
                     android:gravity="center"
@@ -230,7 +232,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/check" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
+        </ScrollView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

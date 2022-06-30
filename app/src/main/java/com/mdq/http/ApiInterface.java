@@ -1,5 +1,7 @@
 package com.mdq.http;
 
+import com.mdq.interfaces.ViewResponseInterface.MacIDStatusResponseInterface;
+import com.mdq.pojo.jsonrequest.BioMetricRequestModel;
 import com.mdq.pojo.jsonrequest.DeleteRequestModel;
 import com.mdq.pojo.jsonrequest.FireBase_UIDRequestModel;
 import com.mdq.pojo.jsonrequest.GenerateLoginRequestModel;
@@ -9,6 +11,8 @@ import com.mdq.pojo.jsonrequest.GenerateRegisterRequestModel;
 import com.mdq.pojo.jsonrequest.GenerateSetMAc_IDRequestModel;
 import com.mdq.pojo.jsonrequest.GenerateValidateOTPRequestModel;
 import com.mdq.pojo.jsonrequest.GenerateVerificationKeyRequestModel;
+import com.mdq.pojo.jsonrequest.MacIDStatusRequestModel;
+import com.mdq.pojo.jsonresponse.BioMetricResponseModel;
 import com.mdq.pojo.jsonresponse.DeleteResponseModel;
 import com.mdq.pojo.jsonresponse.FireBase_UIDResponseModel;
 import com.mdq.pojo.jsonresponse.GenerateLoginResponseModel;
@@ -18,6 +22,7 @@ import com.mdq.pojo.jsonresponse.GenerateRegisterResponseModel;
 import com.mdq.pojo.jsonresponse.GenerateSetMac_IDResponseModel;
 import com.mdq.pojo.jsonresponse.GenerateValidateOTPResponseModel;
 import com.mdq.pojo.jsonresponse.GenerateVerificationKeyResponseModel;
+import com.mdq.pojo.jsonresponse.MacIDStatusResponseModel;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -52,5 +57,11 @@ public interface ApiInterface {
 
     @POST
     Call<FireBase_UIDResponseModel> FireBase_UID(@Url String url, @Body FireBase_UIDRequestModel fireBase_uidRequestModel);
+
+    @POST
+    Call<MacIDStatusResponseModel> MacIDStatusCall(@Url String url, @Body MacIDStatusRequestModel macIDStatusRequestModel);
+
+    @POST
+    Call<BioMetricResponseModel> BioMetricEnableCall(@Url String url, @Body BioMetricRequestModel bioMetricRequestModel);
 
 }

@@ -16,19 +16,22 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.mdq.ViewModel.MacIDStatusViewModel;
 import com.mdq.ViewModel.SetMac_IDViewModel;
 import com.mdq.enums.MessageViewType;
 import com.mdq.enums.ViewType;
+import com.mdq.interfaces.ViewResponseInterface.MacIDStatusResponseInterface;
 import com.mdq.interfaces.ViewResponseInterface.SetMac_IDResponseInterface;
 import com.mdq.marinetechapp.R;
 import com.mdq.marinetechapp.databinding.ActivityMobileNumBinding;
 import com.mdq.marinetechapp.databinding.ActivityMobileRegisterBinding;
 import com.mdq.pojo.jsonresponse.ErrorBody;
 import com.mdq.pojo.jsonresponse.GenerateSetMac_IDResponseModel;
+import com.mdq.pojo.jsonresponse.MacIDStatusResponseModel;
 import com.mdq.utils.BleUtil;
 import com.mdq.utils.PreferenceManager;
 
-public class MobileRegistration extends AppCompatActivity implements SetMac_IDResponseInterface {
+public class MobileRegistration extends AppCompatActivity implements SetMac_IDResponseInterface, MacIDStatusResponseInterface {
     TextView con;
     TextView cancel;
     private BleUtil bleUtil;
@@ -36,19 +39,20 @@ public class MobileRegistration extends AppCompatActivity implements SetMac_IDRe
     PreferenceManager preferenceManager;
     Dialog dialog_Spinner;
     SetMac_IDViewModel setMac_idViewModel;
+    MacIDStatusViewModel macIDStatusViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityMobileRegisterBinding = ActivityMobileRegisterBinding.inflate(getLayoutInflater());
         setContentView(activityMobileRegisterBinding.getRoot());
 
-        setMac_idViewModel=new SetMac_IDViewModel(this,this);
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(receiver,new IntentFilter("ble_data"));
+        setMac_idViewModel = new SetMac_IDViewModel(this, this);
+        macIDStatusViewModel = new MacIDStatusViewModel(this, this);
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(receiver, new IntentFilter("ble_data"));
 
         bleUtil = new BleUtil(getApplicationContext());
         con = findViewById(R.id.con);
         cancel = findViewById(R.id.cancel);
-
 
         setonClick();
 
@@ -62,14 +66,18 @@ public class MobileRegistration extends AppCompatActivity implements SetMac_IDRe
                     Toast.makeText(MobileRegistration.this, "Enter the UIN number", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (activityMobileRegisterBinding.UINKey.getText().toString().length()!=10) {
+                if (activityMobileRegisterBinding.UINKey.getText().toString().length() != 10) {
                     Toast.makeText(MobileRegistration.this, "Enter the correct UIN number", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                bleUtil.ValidateDevice(activityMobileRegisterBinding.UINKey.getText().toString());
+
+                setMac_idViewModel.setMobile(getPreferenceManager().getPrefMobile());
+                setMac_idViewModel.setMac_id(activityMobileRegisterBinding.UINKey.getText().toString().trim());
+                setMac_idViewModel.SetMAc_IDRequest();
+
                 getPreferenceManager().setPrefUinNum(activityMobileRegisterBinding.UINKey.getText().toString());
 
-                 dialog_Spinner = new Dialog(MobileRegistration.this, R.style.dialog_center);
+                dialog_Spinner = new Dialog(MobileRegistration.this, R.style.dialog_center);
                 dialog_Spinner.setContentView(R.layout.dialog_spinner);
                 dialog_Spinner.setCanceledOnTouchOutside(false);
                 dialog_Spinner.show();
@@ -80,7 +88,7 @@ public class MobileRegistration extends AppCompatActivity implements SetMac_IDRe
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MobileRegistration.this,LoginActivity.class));
+                startActivity(new Intent(MobileRegistration.this, LoginActivity.class));
                 finish();
             }
         });
@@ -99,6 +107,7 @@ public class MobileRegistration extends AppCompatActivity implements SetMac_IDRe
         }
         return preferenceManager;
     }
+
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -116,7 +125,7 @@ public class MobileRegistration extends AppCompatActivity implements SetMac_IDRe
             }
 
             if (data.equals("ERROR")) {
-                if(!TextUtils.isEmpty(receivedData)) {
+                if (!TextUtils.isEmpty(receivedData)) {
                     dialog_Spinner.dismiss();
                     if (receivedData.substring(0, 2).equals("C8")) {
                         Toast.makeText(context, "Invalid Request", Toast.LENGTH_SHORT).show();
@@ -125,28 +134,22 @@ public class MobileRegistration extends AppCompatActivity implements SetMac_IDRe
             }
 
             if (data.equals("UIN_SET")) {
-                if(!TextUtils.isEmpty(receivedData)) {
+                if (!TextUtils.isEmpty(receivedData)) {
                     if (receivedData.substring(0, 2).equals("66")) {
                         dialog_Spinner.dismiss();
                         Dialog dialog = new Dialog(MobileRegistration.this, R.style.dialog_center);
                         dialog.setContentView(R.layout.dialog_toast);
                         dialog.setCanceledOnTouchOutside(false);
-
                         dialog.show();
 
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
+                        macIDStatusViewModel.setMacid_status("1");
+                        macIDStatusViewModel.setMobile(getPreferenceManager().getPrefMobile().trim());
+                        macIDStatusViewModel.generateMacIDStatusCall();
 
-                                setMac_idViewModel.setMobile(getPreferenceManager().getPrefMobile());
-                                setMac_idViewModel.setMac_id(activityMobileRegisterBinding.UINKey.getText().toString().trim());
-                                setMac_idViewModel.setMacid_status("1");
-                                setMac_idViewModel.SetMAc_IDRequest();
+                        Intent intent1 = new Intent(MobileRegistration.this, fingerprintenable.class);
+                        startActivity(intent1);
+                        dialog.dismiss();
 
-                                dialog.dismiss();
-
-                            }
-                        },3000);
                     }
                 }
             }
@@ -174,12 +177,19 @@ public class MobileRegistration extends AppCompatActivity implements SetMac_IDRe
     @Override
     public void generateSetMAc_IDProcess(GenerateSetMac_IDResponseModel generateSetMac_idResponseModel) {
 
-        if(generateSetMac_idResponseModel.message.equals("Only 4 users can register per device")){
+        if (generateSetMac_idResponseModel.message.equals("Only 4 users can register per device")) {
             Toast.makeText(this, "Only 4 users can register with one device.", Toast.LENGTH_SHORT).show();
-        }else{
-            Intent intent = new Intent(MobileRegistration.this, fingerprintenable.class);
-            startActivity(intent);
+            dialog_Spinner.dismiss();
         }
+        else if(generateSetMac_idResponseModel.message.equals("Mac Id inserted successfully")){
+            bleUtil.ValidateDevice(activityMobileRegisterBinding.UINKey.getText().toString());
+        }
+
+    }
+
+    @Override
+    public void generateMacIDStatus(MacIDStatusResponseModel macIDStatusResponseModel) {
+
     }
 
     @Override

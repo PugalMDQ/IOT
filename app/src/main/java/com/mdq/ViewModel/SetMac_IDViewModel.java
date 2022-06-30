@@ -33,7 +33,7 @@ public class SetMac_IDViewModel extends SetMac_IDBaseViewModel implements SetMac
         GenerateSetMAc_IDRequestModel generateSetMAc_idRequestModel=new GenerateSetMAc_IDRequestModel();
         generateSetMAc_idRequestModel.mobile=getMobile();
         generateSetMAc_idRequestModel.mac_id=getMac_id();
-        generateSetMAc_idRequestModel.macid_status=getMacid_status();
+
         setMac_idDataManager.callEnqueue(ApiClass.MAC_ID, generateSetMAc_idRequestModel, new ResponseHandler<GenerateSetMac_IDResponseModel>() {
             @Override
             public void onSuccess(String message) {

@@ -11,14 +11,23 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.progressindicator.CircularProgressIndicator;
+import com.mdq.ViewModel.BioMetricViewModel;
+import com.mdq.ViewModel.MacIDStatusViewModel;
+import com.mdq.enums.MessageViewType;
+import com.mdq.enums.ViewType;
+import com.mdq.interfaces.ViewResponseInterface.BioMetricResponseInterface;
+import com.mdq.interfaces.ViewResponseInterface.MacIDStatusResponseInterface;
 import com.mdq.marinetechapp.R;
 import com.mdq.marinetechapp.databinding.ActivityFingerprintAuthenticationBinding;
+import com.mdq.pojo.jsonresponse.BioMetricResponseModel;
+import com.mdq.pojo.jsonresponse.ErrorBody;
+import com.mdq.pojo.jsonresponse.MacIDStatusResponseModel;
 import com.mdq.utils.PreferenceManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class activity_fingerprint_authentication extends AppCompatActivity {
+public class activity_fingerprint_authentication extends AppCompatActivity implements MacIDStatusResponseInterface , BioMetricResponseInterface {
 
     TextView con;
     TextView fin;
@@ -32,6 +41,8 @@ public class activity_fingerprint_authentication extends AppCompatActivity {
     boolean finish=false;
     ActivityFingerprintAuthenticationBinding activityFingerprintAuthenticationBinding;
     PreferenceManager preferenceManager;
+    MacIDStatusViewModel macIDStatusViewModel;
+    BioMetricViewModel bioMetricViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +50,9 @@ public class activity_fingerprint_authentication extends AppCompatActivity {
 
         activityFingerprintAuthenticationBinding=ActivityFingerprintAuthenticationBinding.inflate(getLayoutInflater());
         setContentView(activityFingerprintAuthenticationBinding.getRoot());
+
+        macIDStatusViewModel=new MacIDStatusViewModel(this,this);
+        bioMetricViewModel=new BioMetricViewModel(this,this);
 
         con=findViewById(R.id.con);
         print=findViewById(R.id.print);
@@ -55,6 +69,17 @@ public class activity_fingerprint_authentication extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (finish) {
+
+                    //set bioMetric enable to DB
+                    bioMetricViewModel.setBiometric("1");
+                    bioMetricViewModel.setMobile(getPreferenceManager().getPrefMobile().trim());
+                    bioMetricViewModel.generateBioMetricRequestCall();
+
+                    //set MacID status enable to DB
+                    macIDStatusViewModel.setMacid_status("2");
+                    macIDStatusViewModel.setMobile(getPreferenceManager().getPrefMobile().trim());
+                    macIDStatusViewModel.generateMacIDStatusCall();
+
                     Intent intent = new Intent(activity_fingerprint_authentication.this, activity_profile_setup.class);
                     startActivity(intent);
                 }else{
@@ -66,10 +91,14 @@ public class activity_fingerprint_authentication extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                macIDStatusViewModel.setMacid_status("2");
+                macIDStatusViewModel.setMobile(getPreferenceManager().getPrefMobile().trim());
+                macIDStatusViewModel.generateMacIDStatusCall();
                 Intent intent=new Intent(activity_fingerprint_authentication.this, activity_profile_setup.class);
                 startActivity(intent);
             }
         });
+
     }
 
     private void setProgress(){
@@ -113,7 +142,6 @@ public class activity_fingerprint_authentication extends AppCompatActivity {
         timer.schedule(task,1000,1000);
     }
 
-
     /**
      * @return
      * @brief initializing the preferenceManager from shared preference for local use in this activity
@@ -124,5 +152,32 @@ public class activity_fingerprint_authentication extends AppCompatActivity {
             preferenceManager.initialize(getApplicationContext());
         }
         return preferenceManager;
+    }
+
+    @Override
+    public void ShowErrorMessage(MessageViewType messageViewType, String errorMessage) {
+
+    }
+
+    @Override
+    public void ShowErrorMessage(MessageViewType messageViewType, ViewType viewType, String errorMessage) {
+
+    }
+
+    @Override
+    public void generateMacIDStatus(MacIDStatusResponseModel macIDStatusResponseModel) {
+
+
+
+    }
+
+    @Override
+    public void BioMetricCall(BioMetricResponseModel bioMetricResponseModel) {
+
+    }
+
+    @Override
+    public void onFailure(ErrorBody errorBody, int statusCode) {
+
     }
 }
