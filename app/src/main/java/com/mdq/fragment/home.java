@@ -372,6 +372,7 @@ public class home extends Fragment {
     }
 
     private void checkGPSStatus() {
+
         if (bleCheck) {
             LocationManager locationManager = (LocationManager) requireContext().getSystemService(Context.LOCATION_SERVICE);
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -396,6 +397,7 @@ public class home extends Fragment {
                 }
             }, 4000);
         }
+
     }
 
     @Override
