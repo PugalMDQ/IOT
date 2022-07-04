@@ -40,6 +40,8 @@ public class MobileRegistration extends AppCompatActivity implements SetMac_IDRe
     Dialog dialog_Spinner;
     SetMac_IDViewModel setMac_idViewModel;
     MacIDStatusViewModel macIDStatusViewModel;
+    boolean UINStatus=true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +52,7 @@ public class MobileRegistration extends AppCompatActivity implements SetMac_IDRe
         macIDStatusViewModel = new MacIDStatusViewModel(this, this);
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(receiver, new IntentFilter("ble_data"));
 
-        bleUtil = new BleUtil(getApplicationContext());
+        bleUtil = new BleUtil(getApplicationContext(),"summa");
         con = findViewById(R.id.con);
         cancel = findViewById(R.id.cancel);
 
@@ -81,6 +83,16 @@ public class MobileRegistration extends AppCompatActivity implements SetMac_IDRe
                 dialog_Spinner.setContentView(R.layout.dialog_spinner);
                 dialog_Spinner.setCanceledOnTouchOutside(false);
                 dialog_Spinner.show();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(UINStatus) {
+                            dialog_Spinner.dismiss();
+                            Toast.makeText(MobileRegistration.this, "Retry", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },6000);
 
             }
         });
@@ -128,6 +140,7 @@ public class MobileRegistration extends AppCompatActivity implements SetMac_IDRe
                 if (!TextUtils.isEmpty(receivedData)) {
                     dialog_Spinner.dismiss();
                     if (receivedData.substring(0, 2).equals("C8")) {
+                        UINStatus=false;
                         Toast.makeText(context, "Invalid Request", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -136,6 +149,8 @@ public class MobileRegistration extends AppCompatActivity implements SetMac_IDRe
             if (data.equals("UIN_SET")) {
                 if (!TextUtils.isEmpty(receivedData)) {
                     if (receivedData.substring(0, 2).equals("66")) {
+                        UINStatus=false;
+
                         dialog_Spinner.dismiss();
                         Dialog dialog = new Dialog(MobileRegistration.this, R.style.dialog_center);
                         dialog.setContentView(R.layout.dialog_toast);

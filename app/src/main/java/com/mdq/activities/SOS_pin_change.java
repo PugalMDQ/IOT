@@ -22,7 +22,7 @@ public class SOS_pin_change extends AppCompatActivity {
         activitySosPinChangeBinding=ActivitySosPinChangeBinding.inflate(getLayoutInflater());
         setContentView(activitySosPinChangeBinding.getRoot());
 
-        bleUtil=new BleUtil(getApplicationContext());
+        bleUtil=new BleUtil(getApplicationContext(),"summa");
         setonClick();
 
 

@@ -27,7 +27,7 @@ public class security extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         activitySecurityBinding=ActivitySecurityBinding.inflate(getLayoutInflater());
         setContentView(activitySecurityBinding.getRoot());
-        bleUtil=new BleUtil(getApplicationContext());
+        bleUtil=new BleUtil(getApplicationContext(),"summa");
 
         //onclick
         setOnClick();

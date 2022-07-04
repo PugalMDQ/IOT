@@ -50,6 +50,8 @@ public class PreferenceManager {
 
     private static final String PREF_MACID_STATUS = "PREF_MACID_STATUS";
 
+    private static final String PREF_BLE_ADDRESS = "PREF_BLE_ADDRESS";
+
     private static PreferenceManager mInstance;
 
     public void initialize(Context context) {
@@ -130,7 +132,7 @@ public class PreferenceManager {
         Gson gson = new Gson();
         String json = gson.toJson(mmDevice);
         editor.putString(PREF_BLE_DEVICE, json);
-        editor.commit();
+        editor.apply();
     }
 
     public String getPrefBleDevice() {
@@ -189,6 +191,15 @@ public class PreferenceManager {
 
     public String getPrefSignUp() {
         return sharedPreferences.getString(PREF_SIGN_UP, null);
+    }
+
+    public void setPrefBleAddress(String bleAddress) {
+        editor.putString(PREF_BLE_ADDRESS, bleAddress);
+        editor.commit();
+    }
+
+    public String getPrefBleAddress() {
+        return sharedPreferences.getString(PREF_BLE_ADDRESS, null);
     }
 
     public void setPrefId(String Token) {

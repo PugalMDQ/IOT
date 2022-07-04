@@ -28,6 +28,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.mdq.activities.Notificationactivity;
+import com.mdq.activities.Wifi_configuration;
 import com.mdq.marinetechapp.R;
 import com.mdq.marinetechapp.databinding.FragmentHomeBinding;
 import com.mdq.utils.BleUtil;
@@ -51,6 +52,7 @@ public class home extends Fragment {
     Dialog dialog_Spinner;
     Dialog dialog_Spinner_Locker_status;
     String from;
+    boolean UINStatus=true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,20 +82,11 @@ public class home extends Fragment {
         gatheringLockerStatusDialog();
 
         requestPermission = new RequestPermission(requireActivity());
-        bleUtil = new BleUtil(requireContext());
+        bleUtil = new BleUtil(requireContext(),"summa");
         bleCall();
         checkLocationPermission();
         BluetoothCheck();
         dialog = new Dialog(requireActivity(), R.style.dialog_center);
-
-//        FirebaseMessaging.getInstance().token.addOnCompleteListener {
-//            if (it.isComplete) {
-//
-//                var firebaseToken = it.result.toString()
-//                Log.i("sanjai1243421321", firebaseToken)
-//
-//            }
-//        }
 
         dialogCheck();
         SpannableString ss = new SpannableString("Hello "+getPreferenceManager().getPrefUsername().trim());
@@ -118,6 +111,17 @@ public class home extends Fragment {
                                     dialog.dismiss();
                                     bleUtil.Open_Locker(pin.getText().toString().trim(), getPreferenceManager().getPrefMobile());
                                     spinner_dialog();
+
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            if(UINStatus) {
+                                                dialog_Spinner.dismiss();
+                                                Toast.makeText(getActivity(), "Retry", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    },6000);
+
                                 } else {
                                     Toast.makeText(requireContext(), "Door already open ", Toast.LENGTH_SHORT).show();
                                 }
@@ -291,6 +295,7 @@ public class home extends Fragment {
 
             if (data.equals("locker_opened")) {
                 if (!TextUtils.isEmpty(receivedData)) {
+                    UINStatus=false;
                     if (receivedData.substring(0, 2).equals("6E")) {
                         dialog_Spinner.dismiss();
                         firstVisible();
@@ -301,6 +306,7 @@ public class home extends Fragment {
             if (data.equals("ERROR")) {
                 if (!TextUtils.isEmpty(receivedData)) {
                     if (receivedData.substring(0, 2).equals("C8")) {
+                        UINStatus=false;
                         dialog_Spinner.dismiss();
                         Toast.makeText(context, "Invalid Request", Toast.LENGTH_LONG).show();
                     }
@@ -366,9 +372,7 @@ public class home extends Fragment {
                 startActivity(intentOpenBluetoothSettings);
             }
         });
-
         dialogBluetooth.show();
-
     }
 
     private void checkGPSStatus() {
@@ -397,7 +401,6 @@ public class home extends Fragment {
                 }
             }, 4000);
         }
-
     }
 
     @Override

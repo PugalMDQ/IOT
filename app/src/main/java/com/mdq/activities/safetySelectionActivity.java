@@ -125,20 +125,22 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
 
         BluetoothCheck();
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(receiver, new IntentFilter("ble_data"));
-        bleUtil = new BleUtil(getApplicationContext());
+        bleUtil = new BleUtil(getApplicationContext(),"safe");
         activitySafetySelectionBinding.cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Connected) {
                     if (activitySafetySelectionBinding.check.isChecked()) {
                         if (openClose) {
-                            if(getPreferenceManager().getPrefMacidStatus().equals("4")){
+                            if(getPreferenceManager().getPrefMacidStatus().equals("5")){
                                 startActivity(new Intent(safetySelectionActivity.this, HomeActivity.class)
                                         .putExtra("from","login"));
-                            } else if(getPreferenceManager().getPrefMacidStatus().equals("3")){
+                            } else if(getPreferenceManager().getPrefMacidStatus().equals("4")){
                                 startActivity(new Intent(safetySelectionActivity.this, EmergencyNumberActivity.class));
-                            } else if(getPreferenceManager().getPrefMacidStatus().equals("2")){
+                            } else if(getPreferenceManager().getPrefMacidStatus().equals("3")){
                                 startActivity(new Intent(safetySelectionActivity.this, Wifi_configuration.class));
+                            } else if(getPreferenceManager().getPrefMacidStatus().equals("2")){
+                                startActivity(new Intent(safetySelectionActivity.this, activity_profile_setup.class));
                             } else if(getPreferenceManager().getPrefMacidStatus().equals("1")){
                                 startActivity(new Intent(safetySelectionActivity.this, fingerprintenable.class));
                             } else if(getPreferenceManager().getPrefMacidStatus().equals("0")){
@@ -259,7 +261,7 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
         dialog_Spinner.setCanceledOnTouchOutside(false);
         progressBar = dialog_Spinner.findViewById(R.id.progress);
         textView = dialog_Spinner.findViewById(R.id.subText);
-        textView.setText("Please Open the V Safe Locker door.");
+        textView.setText("Please Open the V SAFE Locker door.");
         dialog_Spinner.show();
 
         new Handler().postDelayed(new Runnable() {
@@ -272,7 +274,6 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
     }
 
     private void initialize() {
-
         deviceListInterface = this;
         context = getApplicationContext();
         rcvSearchMarineBleDevice = findViewById(R.id.rcvSearchBleDevice);
@@ -281,7 +282,6 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
         deviceArrayList = new ArrayList<>();
         bluetoothDeviceList = new ArrayList<BluetoothDevice>();
         deviceListObjects = new ArrayList<>();
-
     }
 
     public static void setAdapter(ArrayList<String> deviceList, int position) {
@@ -290,7 +290,7 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
         deviceListObjects.clear();
         deviceListDub = deviceList;
         if (deviceListDub.isEmpty()) {
-            activitySafetySelectionBinding.text.setText("Swipe down to scan your V Safe smart locker!");
+            activitySafetySelectionBinding.text.setText("Swipe down to scan your V SAFE smart locker!");
         } else {
             activitySafetySelectionBinding.text.setVisibility(View.GONE);
         }
@@ -299,11 +299,10 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
         rcvSearchMarineBleDevice.setLayoutManager(llmtool);
         unConfigDeviceListAdapter.notifyDataSetChanged();
         rcvSearchMarineBleDevice.setAdapter(unConfigDeviceListAdapter);
-
     }
 
     private void refresh() {
-        activitySafetySelectionBinding.text.setText("Searching V Safe smart lockers...");
+        activitySafetySelectionBinding.text.setText("Searching V SAFE smart lockers...");
         activitySafetySelectionBinding.text.setVisibility(VISIBLE);
         BleUtil.disconnect_tool();
         bleUtil.stopScanning();
@@ -346,10 +345,12 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
                         Log.e("check_to_connect_device", bluetoothDevice.getName());
 
                         getPreferenceManager().setPrefBleDevice(bluetoothDevice);
-                        Gson gson = new Gson();
-                        String json = getPreferenceManager().getPrefBleDevice();
-                        Type type = new TypeToken<BluetoothDevice>() {
-                        }.getType();
+                        getPreferenceManager().setPrefBleAddress(bluetoothDevice.getAddress());
+
+//                        Gson gson = new Gson();
+//                        String json = getPreferenceManager().getPrefBleDevice();
+//                        Type type = new TypeToken<BluetoothDevice>() {
+//                        }.getType();
 //                        BluetoothDevice bluetoothDevices = gson.fromJson(json, BluetoothDevice.class);
 //                        Log.e("check_to_connect_device123", bluetoothDevices.getName());
                         onClick = false;
@@ -373,7 +374,7 @@ public class safetySelectionActivity extends AppCompatActivity implements Device
 
         connectPosition = (ConnectPosition) this;
         requestPermission = new RequestPermission(this);
-        bleUtil = new BleUtil(context);
+        bleUtil = new BleUtil(context,"safe");
         set_deviceList = new HashSet<String>();
         deviceArrayList = new ArrayList<>();
         bluetoothDeviceList = new ArrayList<BluetoothDevice>();

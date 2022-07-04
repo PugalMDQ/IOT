@@ -24,6 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.mdq.activities.LoginActivity;
 import com.mdq.interfaces.AppConstants;
 import com.mdq.activities.safetySelectionActivity;
 import com.mdq.marinetechapp.databinding.ActivitySafetySelectionBinding;
@@ -59,6 +60,7 @@ public class BleUtil {
     private PreferenceManagerMarine preferenceManager;
     private PreferenceManager preferenceManagerVSafe;
     private String commandToPair;
+    private String from;
     private BluetoothDevice bluetoothName;
     private boolean isWrite = false;
     private boolean isRead = false;
@@ -72,18 +74,18 @@ public class BleUtil {
     }
 
     public native String enc(byte[] getdata);
+
     public native String dec(byte[] decryptData);
 
     Handler handler = new Handler();
     int positionWrite;
 
-
-    public BleUtil(Context context) {
+    public BleUtil(Context context, String from) {
+        this.from = from;
         this.context = context;
         preferenceManager = new PreferenceManagerMarine(context);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public void startScanning() {
         try {
 
@@ -115,7 +117,6 @@ public class BleUtil {
                 if (!isScanning && isScanEnable) {
                     startScanning();
                 }
-
             }, 15000);
         } catch (Exception e) {
             e.printStackTrace();
@@ -140,18 +141,26 @@ public class BleUtil {
 
                 if (result.getDevice().getName() != null) {
                     Log.e("DeviceNameAdd2", result.getDevice().getName() + "");
-
+                    if (from.equals("Login")) {
+                        BluetoothDevice bluetoothDevice = result.getDevice();
+                        LoginActivity.bluetoothDeviceList.add(bluetoothDevice);
+                    }
                     if (safetySelectionActivity.set_deviceList != null) {
                         Log.e("DeviceNameAdd3", result.getDevice().getName() + "");
 
                         if (!safetySelectionActivity.set_deviceList.contains(result.getDevice().getName())) {
                             Log.e("DeviceNameAdd", result.getDevice().getName() + "");
+
+                            Log.i("BLEActivityBLEActivity", "OUTER");
+
+                            BluetoothDevice bluetoothDevice = result.getDevice();
+
+                            LoginActivity.bluetoothDeviceList.add(bluetoothDevice);
+                            safetySelectionActivity.bluetoothDeviceList.add(bluetoothDevice);
+                            safetySelectionActivity.deviceArrayList.add(result.getDevice().getName() + "");
+                            safetySelectionActivity.setAdapter(safetySelectionActivity.deviceArrayList, -1);
                             safetySelectionActivity.set_deviceList.add(result.getDevice().getName() + "");
                             safetySelectionActivity.deviceAddress.add(result.getDevice().getAddress().trim());
-                            safetySelectionActivity.deviceArrayList.add(result.getDevice().getName() + "");
-                            BluetoothDevice bluetoothDevice = result.getDevice();
-                            safetySelectionActivity.bluetoothDeviceList.add(bluetoothDevice);
-                            safetySelectionActivity.setAdapter(safetySelectionActivity.deviceArrayList, -1);
 
 //                            BLEFragment.pbProgressCircular.setVisibility(View.VISIBLE);
 //                            BLEFragment.txtProgressStatus.setVisibility(View.GONE);
@@ -513,7 +522,7 @@ public class BleUtil {
         }
     }
 
-    public void wifiSetup(String WIFI_name, String PASSWORD) {
+    public void wifiSetupUpdate(String WIFI_name, String PASSWORD) {
         try {
             Log.e(AppConstants.ENTER, "wifiSetUP");
 
@@ -538,6 +547,52 @@ public class BleUtil {
             Log.e("Len_WIFI_Password", Len_WIFI_Password);
 
             String pair = CHARACTERISTIC_WIFI_SETUP + Len_WIFI_NAME + hex_WIFI_NAME + Len_WIFI_Password + hex_WIFI_PASSWORD;
+
+            Log.e("wifiSetUP", pair);
+
+            commandToPair = pair;
+            Log.e("commandToPing", commandToPair);
+            handler.postDelayed(() -> {
+                Log.e("testPing", AppConstants.CHARACTERISTICWRITE);
+                characteristicWrite();
+            }, 0);
+        } catch (Exception e) {
+            Log.e("pingCMDException", "", e);
+        }
+    }
+
+    public void wifiSetup(String WIFI_name, String PASSWORD, String SeverLink) {
+        try {
+            Log.e(AppConstants.ENTER, "wifiSetUP");
+
+            String hex_WIFI_NAME = Helper.String_to_hex(WIFI_name);
+            Log.e("hex_WIFI_NAME", hex_WIFI_NAME);
+
+            String hex_WIFI_PASSWORD = Helper.String_to_hex(PASSWORD);
+            Log.e("hex_WIFI_PASSWORD", hex_WIFI_PASSWORD);
+
+            String hex_SERVER_LINK = Helper.String_to_hex(SeverLink);
+            Log.e("hex_WIFI_PASSWORD", hex_SERVER_LINK);
+
+            String len = String.valueOf(hex_WIFI_NAME.length() / 2);
+            Log.e("LEN/", "" + hex_WIFI_NAME.length());
+            Log.e("len", len);
+
+            String SERVER_len = String.valueOf(hex_SERVER_LINK.length() / 2);
+            Log.e("LEN/", "" + hex_SERVER_LINK.length());
+            Log.e("len", SERVER_len);
+
+            String Len_WIFI_NAME = Helper.decToHex(hex_WIFI_NAME.length() / 2);
+            Log.e("Len_WIFI_NAME", Len_WIFI_NAME);
+
+            Len_WIFI_NAME = Len_WIFI_NAME.substring(6);
+
+            String Len_WIFI_Password = Helper.decToHex(hex_WIFI_PASSWORD.length() / 2);
+            Len_WIFI_Password = Len_WIFI_Password.substring(6);
+
+            Log.e("Len_WIFI_Password", Len_WIFI_Password);
+
+            String pair = CHARACTERISTIC_WIFI_SETUP + Len_WIFI_NAME + hex_WIFI_NAME + Len_WIFI_Password + hex_WIFI_PASSWORD + SERVER_len + hex_SERVER_LINK;
 
             Log.e("wifiSetUP", pair);
 
@@ -663,11 +718,11 @@ public class BleUtil {
         }
     }
 
-    public void ValidateMobileKey(String num) {
+    public void ValidateMobileKey(String num, String DeviceID) {
         try {
             Log.e(AppConstants.ENTER, "ValidateMobileKey");
 
-            String pair = VALIDATE_MOBILE_KEY + Helper.String_to_hex(num) + Helper.String_to_hex(num); //Test LED CMD
+            String pair = VALIDATE_MOBILE_KEY + Helper.String_to_hex(DeviceID) + Helper.String_to_hex(num); //Test LED CMD
             Log.e("ValidateMobileKey", pair);
 
             commandToPair = pair;
@@ -685,7 +740,7 @@ public class BleUtil {
         try {
             Log.e(AppConstants.ENTER, "MobileKeyRegister");
 
-            String pair = SETUP_LOCKER + Helper.String_to_hex(L_PIN) + Helper.String_to_hex(SOS_PIN) + Helper.String_to_hex(Device_Id)+ Helper.String_to_hex(num);
+            String pair = SETUP_LOCKER + Helper.String_to_hex(L_PIN) + Helper.String_to_hex(SOS_PIN) + Helper.String_to_hex(Device_Id) + Helper.String_to_hex(num);
 
             Log.e("MobileKeyRegister", pair);
             commandToPair = pair;
@@ -702,7 +757,7 @@ public class BleUtil {
     public void Open_Locker(String pin, String num) {
         try {
             Log.e(AppConstants.ENTER, "MobileKeyRegister");
-            String pair = OPEN_CLOSE_LOCKER + Helper.String_to_hex(num)+ Helper.String_to_hex(pin);
+            String pair = OPEN_CLOSE_LOCKER + Helper.String_to_hex(num) + Helper.String_to_hex(pin);
 
             Log.e("MobileKeyRegister", pair);
             commandToPair = pair;
@@ -775,9 +830,7 @@ public class BleUtil {
                 commandToPair = firstFour + toBeEncrypted + toBeEncryptedremainingsecond + tobeEncryptedremainingthird + strChecksumFinal + lastTwo;
             }
             characteristicWrite();
-
             Log.e("cmdToSetWifiSsidConfig", commandToPair);
-
             String cmdLength = String.valueOf(commandToPair.length());
             Log.e(AppConstants.COMMANDLENGTH, cmdLength);
 
@@ -987,6 +1040,7 @@ public class BleUtil {
         }
         return commandToPair;
     }
+
     /**
      * @return
      * @brief initializing the preferenceManager from shared preference for local use in this activity

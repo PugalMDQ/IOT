@@ -11,7 +11,7 @@ public class GenerateValidateOTPResponseModel {
 
     @SerializedName("error")
     @Expose
-    public String error;
+    public boolean error;
 
     public String getMessage() {
         return message;
@@ -21,11 +21,11 @@ public class GenerateValidateOTPResponseModel {
         this.message = message;
     }
 
-    public String getError() {
+    public boolean getError() {
         return error;
     }
 
-    public void setError(String error) {
+    public void setError(boolean error) {
         this.error = error;
     }
 }

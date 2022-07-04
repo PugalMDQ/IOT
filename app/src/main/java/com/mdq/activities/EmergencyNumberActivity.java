@@ -10,22 +10,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mdq.ViewModel.InsertEmergencyMobileNoViewModel;
 import com.mdq.ViewModel.MacIDStatusViewModel;
 import com.mdq.enums.MessageViewType;
 import com.mdq.enums.ViewType;
+import com.mdq.interfaces.ViewResponseInterface.InsertEmergencyMobileNoResponseInterface;
 import com.mdq.interfaces.ViewResponseInterface.MacIDStatusResponseInterface;
 import com.mdq.marinetechapp.R;
 import com.mdq.pojo.jsonresponse.ErrorBody;
+import com.mdq.pojo.jsonresponse.InsertEmergencyMobileNoResponseModel;
 import com.mdq.pojo.jsonresponse.MacIDStatusResponseModel;
 import com.mdq.utils.PreferenceManager;
 
-public class EmergencyNumberActivity extends AppCompatActivity implements MacIDStatusResponseInterface {
+public class EmergencyNumberActivity extends AppCompatActivity implements MacIDStatusResponseInterface , InsertEmergencyMobileNoResponseInterface {
 
     TextView Confirm;
     EditText number;
     ImageView back;
     PreferenceManager preferenceManager;
     MacIDStatusViewModel macIDStatusViewModel;
+    InsertEmergencyMobileNoViewModel insertEmergencyMobileNoViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,7 @@ public class EmergencyNumberActivity extends AppCompatActivity implements MacIDS
         setContentView(R.layout.activity_emergency_number);
 
         macIDStatusViewModel=new MacIDStatusViewModel(this,this);
+        insertEmergencyMobileNoViewModel=new InsertEmergencyMobileNoViewModel(this,this);
 
         Confirm=findViewById(R.id.Confirm);
         number=findViewById(R.id.number);
@@ -42,9 +47,13 @@ public class EmergencyNumberActivity extends AppCompatActivity implements MacIDS
             @Override
             public void onClick(View v) {
                 if(number.getText().toString().length()==10){
-                    macIDStatusViewModel.setMacid_status("4");
+                    macIDStatusViewModel.setMacid_status("5");
                     macIDStatusViewModel.setMobile(getPreferenceManager().getPrefMobile().trim());
                     macIDStatusViewModel.generateMacIDStatusCall();
+
+                    insertEmergencyMobileNoViewModel.setMobile(getPreferenceManager().getPrefMobile().trim());
+                    insertEmergencyMobileNoViewModel.setEmergencyNumber(number.getText().toString().trim());
+                    insertEmergencyMobileNoViewModel.getEmergencyNumber();
 
                     startActivity(new Intent(EmergencyNumberActivity.this,HomeActivity.class)
                             .putExtra("from","signup"));
@@ -79,6 +88,11 @@ public class EmergencyNumberActivity extends AppCompatActivity implements MacIDS
     }
 
     @Override
+    public void generateInsertENOCall(InsertEmergencyMobileNoResponseModel insertEmergencyMobileNoResponseModel) {
+
+    }
+
+    @Override
     public void onFailure(ErrorBody errorBody, int statusCode) {
 
     }
@@ -95,5 +109,6 @@ public class EmergencyNumberActivity extends AppCompatActivity implements MacIDS
         }
         return preferenceManager;
     }
+
 
 }

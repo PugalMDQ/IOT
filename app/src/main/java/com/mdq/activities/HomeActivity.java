@@ -75,16 +75,17 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void loadFragment(Fragment fragment) {
-        if(from.trim().equals("login") ||from.trim().equals("signup")  ) {
-            Bundle bundle = new Bundle();
-            String myMessage = from;
-            bundle.putString("message", myMessage);
-            fragment.setArguments(bundle);
-        }
+//        if(from.trim().equals("login") ||from.trim().equals("signup")){
+//            Bundle bundle = new Bundle();
+//            String myMessage = from;
+//            bundle.putString("message", myMessage);
+//            fragment.setArguments(bundle);
+//        }
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_home_fragment, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+
     }
 
 }

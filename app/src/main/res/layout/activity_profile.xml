@@ -84,8 +84,6 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="18sp"
                     android:background="@drawable/email_back"
-                    android:text="sanjai"
-                    android:hint="Enter Name"
                     android:fontFamily="@font/lato"
                     android:textColorHint="@color/grey"
                     android:padding="19dp"
@@ -116,8 +114,6 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="18sp"
                     android:background="@drawable/email_back"
-                    android:text="sanjai@gmail.com"
-                    android:hint="Enter Email"
                     android:fontFamily="@font/lato"
                     android:textColorHint="@color/grey"
                     android:padding="19dp"
@@ -149,8 +145,6 @@
                     android:layout_marginRight="18sp"
                     android:background="@drawable/email_back"
                     android:drawableRight="@drawable/visibility_off"
-                    android:text="sanjai2001"
-                    android:hint="Enter Password"
                     android:padding="15dp"
                     android:inputType="textPassword"
                     android:fontFamily="@font/lato"
@@ -182,8 +176,6 @@
                     android:layout_marginRight="18sp"
                     android:drawableRight="@drawable/visibility_off"
                     android:background="@drawable/email_back"
-                    android:hint="Confirm Password"
-                    android:text="sanjai2001"
                     android:padding="15dp"
                     android:inputType="textPassword"
                     android:textColor="#1C1C1C"
@@ -192,6 +184,36 @@
                     android:textSize="16sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/TextReMpin" />
+
+
+                <TextView
+                    android:id="@+id/TextEMobileNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/lato"
+                    android:text="Emergency Mobile Number"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/REMpin" />
+
+                <EditText
+                    android:id="@+id/EMobileNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="18sp"
+                    android:background="@drawable/email_back"
+                    android:padding="19dp"
+                    android:textColor="#1C1C1C"
+                    android:fontFamily="@font/lato"
+                    android:textColorHint="@color/grey"
+                    android:textSize="16sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/TextEMobileNo" />
 
                 <TextView
                     android:id="@+id/SignUP"
@@ -212,7 +234,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/REMpin" />
+                    app:layout_constraintTop_toBottomOf="@+id/EMobileNo" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 

@@ -20,11 +20,11 @@ public class GenerateVerificationKeyResponseModel {
         this.message = message;
     }
 
-    public String getError() {
+    public boolean getError() {
         return error;
     }
 
-    public void setError(String error) {
+    public void setError(boolean error) {
         this.error = error;
     }
 
@@ -38,7 +38,7 @@ public class GenerateVerificationKeyResponseModel {
 
     @SerializedName("error")
     @Expose
-    public String error;
+    public boolean error;
     @SerializedName("data")
     @Expose
     public List<com.mdq.pojo.jsonresponse.ResponseForVerification> data;

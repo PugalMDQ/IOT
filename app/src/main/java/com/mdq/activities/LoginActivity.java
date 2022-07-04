@@ -6,18 +6,24 @@ import static android.Manifest.permission.READ_SMS;
 import static android.content.ContentValues.TAG;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -29,8 +35,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -49,14 +57,17 @@ import com.mdq.pojo.jsonresponse.ErrorBody;
 import com.mdq.pojo.jsonresponse.FireBase_UIDResponseModel;
 import com.mdq.pojo.jsonresponse.GenerateLoginResponseModel;
 import com.mdq.pojo.jsonresponse.GenerateVerificationKeyResponseModel;
+import com.mdq.utils.BleUtil;
 import com.mdq.utils.PreferenceManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity implements VerificationKeyResponseInterface, LoginResponseInterface, FireBase_UIDResponseInterface {
 
     ActivityLoginBinding getActivityLoginBinding;
     boolean passwordVisibility;
+    boolean connecting_device=true;
     EditText password;
     PreferenceManager preferenceManager;
     String pass;
@@ -66,6 +77,10 @@ public class LoginActivity extends AppCompatActivity implements VerificationKeyR
     String SIMmobileNum1;
     String SIMmobileNum2;
     FireBase_UIDViewModel fireBase_uidViewModel;
+    BleUtil bleUtil;
+    String id;
+    public static List<BluetoothDevice> bluetoothDeviceList;
+    GenerateLoginResponseModel generateLoginResponseModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,18 +91,25 @@ public class LoginActivity extends AppCompatActivity implements VerificationKeyR
         loginRequestViewModel = new LoginRequestViewModel(this, this);
         verificationKeyViewModel = new VerificationKeyViewModel(this, this);
         fireBase_uidViewModel = new FireBase_UIDViewModel(this, this);
+        bluetoothDeviceList = new ArrayList<BluetoothDevice>();
+        bleUtil=new BleUtil(LoginActivity.this,"Login");
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(receiver, new IntentFilter("ble_data"));
+
+        id  = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+        Log.i("ididididiidi",id);
 
         connectivityManager = (ConnectivityManager) getApplicationContext()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
+
         //password visibility
         password();
         //set click
         click();
+
         //verification api call
         verification();
         GetNumber();
         secondNumber();
-
         String id = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
 
         Log.i("id", id);
@@ -227,44 +249,82 @@ public class LoginActivity extends AppCompatActivity implements VerificationKeyR
     public void generateLoginProcessed(GenerateLoginResponseModel generateLoginResponseModel) {
 
         if (generateLoginResponseModel.getMessage().equals("Logged in successfully")) {
-            Toast.makeText(getApplicationContext(), "" + generateLoginResponseModel.message, Toast.LENGTH_SHORT).show();
+
+            this.generateLoginResponseModel=generateLoginResponseModel;
 
             if (generateLoginResponseModel.getId().get(0).getId() != null && generateLoginResponseModel.getToken() != null) {
                 getPreferenceManager().setPrefId(generateLoginResponseModel.getId().get(0).getId());
                 getPreferenceManager().setPrefToken(generateLoginResponseModel.getToken());
             }
-
             getPreferenceManager().setPrefMobile(getActivityLoginBinding.email.getText().toString().trim());
             getPreferenceManager().setPrefUsername(generateLoginResponseModel.getId().get(0).getUsername().trim());
             getPreferenceManager().setPrefMacidStatus(generateLoginResponseModel.getId().get(0).getMacid_status());
+            getPreferenceManager().setPrefToken(generateLoginResponseModel.getToken());
 
-            fireBaseCall();
+//            startActivity(new Intent(getApplicationContext(),profileActivity.class));
 
-//            BleUtil bleUtil = new BleUtil(LoginActivity.this);
-//            Gson gson = new Gson();
-//            String json = getPreferenceManager().getPrefBleDevice();
-//            Type type = new TypeToken<BluetoothDevice>() {
-//            }.getType();
-//            BluetoothDevice bluetoothDevice = gson.fromJson(json, BluetoothDevice.class);
+            if(!generateLoginResponseModel.getId().get(0).getMacid_status().trim().equals("0")) {
+                bleUtil.startScanning();
+                connectingDevice();
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        loginSuccessfull();
+//                    }
+//                }, 15000);
 
-//            bleUtil.connect_to_tool(bluetoothDevice);
-
-            if (generateLoginResponseModel.getId().get(0).getBiometric().equals("Yes")) {
-                    getPreferenceManager().setPrefUinNum(generateLoginResponseModel.getId().get(0).getMac_id());
-                    startActivity(new Intent(getApplicationContext(), BioMetrix.class)
-                            .putExtra("from", "login"));
-                    finish();
-
+            }else{
+                loginSuccessfull();
             }
-            else {
-                    getPreferenceManager().setPrefUinNum(generateLoginResponseModel.getId().get(0).getMac_id());
-                    startActivity(new Intent(getApplicationContext(), safetySelectionActivity.class)
-                            .putExtra("from", "login"));
-                    finish();
-            }
-        } else {
-            Toast.makeText(this, "Login failed. check with V Safe admin team. ", Toast.LENGTH_SHORT).show();
         }
+        else {
+            Toast.makeText(this, "Login failed. check with V SAFE admin team. ", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void loginSuccessfull() {
+        Toast.makeText(getApplicationContext(), "" + generateLoginResponseModel.message, Toast.LENGTH_SHORT).show();
+        fireBaseCall();
+
+        if (generateLoginResponseModel.getId().get(0).getBiometric().equals("Yes")) {
+            getPreferenceManager().setPrefUinNum(generateLoginResponseModel.getId().get(0).getMac_id());
+            startActivity(new Intent(getApplicationContext(), BioMetrix.class)
+                    .putExtra("from", "login"));
+            finish();
+        }
+        else {
+            getPreferenceManager().setPrefUinNum(generateLoginResponseModel.getId().get(0).getMac_id());
+            startActivity(new Intent(getApplicationContext(), safetySelectionActivity.class)
+                    .putExtra("from", "login"));
+            finish();
+        }
+    }
+
+    private void connectingDevice() {
+        if(connecting_device){
+            if(bluetoothDeviceList.size()>0){
+                for (int i=0;i<bluetoothDeviceList.size();i++){
+                    if(bluetoothDeviceList.get(i).getAddress().trim().equals(getPreferenceManager().getPrefBleAddress().trim())){
+                       bleUtil.connect_to_tool(bluetoothDeviceList.get(i));
+                       connecting_device=false;
+                   }
+                }
+            }else{
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        scan();
+                    }
+                },5000);
+            }
+        }else{
+            Toast.makeText(this, "false", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void scan() {
+//        bleUtil.startScanning();
+        connectingDevice();
     }
 
     @Override
@@ -305,24 +365,22 @@ public class LoginActivity extends AppCompatActivity implements VerificationKeyR
                 // for ActivityCompat#requestPermissions for more details.
                 return;
             }
+
             if (localSubscriptionManager.getActiveSubscriptionInfoCount() > 1) {
+
                 //if there are two sims in dual sim mobile
                 List localList = localSubscriptionManager.getActiveSubscriptionInfoList();
                 SubscriptionInfo simInfo = (SubscriptionInfo) localList.get(0);
                 SubscriptionInfo simInfo1 = (SubscriptionInfo) localList.get(1);
-
                 final String sim1 = simInfo.getNumber().toString();
                 final String sim2 = simInfo1.getNumber().toString();
-
                 SIMmobileNum1 = sim1.trim().substring(2);
                 SIMmobileNum2 = sim2.trim();
-
                 Log.i("sim1", SIMmobileNum1);
                 Log.i("sim2", SIMmobileNum2);
             }
         }
     }
-
 
     public void GetNumber() {
         if (ActivityCompat.checkSelfPermission(this, READ_SMS) == PackageManager.PERMISSION_GRANTED &&
@@ -348,6 +406,7 @@ public class LoginActivity extends AppCompatActivity implements VerificationKeyR
         }
     }
 
+    @SuppressLint("MissingPermission")
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
@@ -359,6 +418,7 @@ public class LoginActivity extends AppCompatActivity implements VerificationKeyR
                         ActivityCompat.checkSelfPermission(this, READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
+
                 String phoneNumber = telephonyManager.getLine1Number();
 
                 try {
@@ -404,6 +464,58 @@ public class LoginActivity extends AppCompatActivity implements VerificationKeyR
                         // Log and toast
                     }
                 });
+    }
+
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String data = null;
+            String selfteststatus = null;
+            String receivedData = null;
+            String status = null;
+
+            if (intent != null) {
+                data = (String) intent.getExtras().get("val");
+                selfteststatus = (String) intent.getExtras().get("decryptValue");
+                receivedData = (String) intent.getExtras().get("receivedData");
+                status = (String) intent.getExtras().get("status");
+                Log.i("testdataonthetop", data + "");
+            }
+
+            if (data.equals("ble_device_connected")) {
+                connecting_device = false;
+                deviceConnected();
+            }
+
+            if (data.equals("ble_device_disconnected")) {
+                loginSuccessfull();
+            }
+
+        }
+    };
+
+    private void deviceConnected() {
+
+        if(getPreferenceManager().getPrefMacidStatus().equals("5")){
+            startActivity(new Intent(LoginActivity.this, HomeActivity.class)
+                    .putExtra("from","login"));
+        } else if(getPreferenceManager().getPrefMacidStatus().equals("4")){
+            startActivity(new Intent(LoginActivity.this, EmergencyNumberActivity.class));
+        } else if(getPreferenceManager().getPrefMacidStatus().equals("3")){
+            startActivity(new Intent(LoginActivity.this, Wifi_configuration.class));
+        } else if(getPreferenceManager().getPrefMacidStatus().equals("2")){
+            startActivity(new Intent(LoginActivity.this, activity_profile_setup.class));
+        } else if(getPreferenceManager().getPrefMacidStatus().equals("1")){
+            startActivity(new Intent(LoginActivity.this, fingerprintenable.class));
+        } else if(getPreferenceManager().getPrefMacidStatus().equals("0")){
+            startActivity(new Intent(LoginActivity.this, MobileRegistration.class));
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(receiver);
     }
 
 }

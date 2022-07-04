@@ -35,7 +35,8 @@ public class DeviceManger_activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(DeviceManger_activity.this, Wifi_configuration.class));
+                startActivity(new Intent(DeviceManger_activity.this, Wifi_configuration.class)
+                        .putExtra("from","deviceManager"));
 
             }
         });

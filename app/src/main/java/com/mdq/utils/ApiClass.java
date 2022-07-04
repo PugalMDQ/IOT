@@ -15,5 +15,10 @@ public class ApiClass {
     public static final String FIREBASE_UID = "firebase";
     public static final String MACID_STATUS = "signup-status";
     public static final String BIOMETRIC = "biometric";
+    public static final String INSERTWIFI = "insertwifi";
+    public static final String EMERGENCYNUMBER = "emergencynumber";
+    public static final String GETUSER = "getuser";
+    public static final String UPDATEUSERPROFILE = "updateuserprofile";
+    public static final String UPDATEWIFI = "updatewifi";
 
 }

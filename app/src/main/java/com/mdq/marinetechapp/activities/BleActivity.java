@@ -125,7 +125,6 @@ public class BleActivity extends AppCompatActivity implements DeviceListInterfac
     private CountDownTimer getSerialIdCountDownTimer;
     private boolean getSerialIdTickValue = false;
     private int getSerialIdWaitingTimer;
-
     private CountDownTimer setWifiSsidCountDownTimer;
     private int serialNumberLength = 0;
     private int serialNumberLengthCalculation = 0;
@@ -140,6 +139,7 @@ public class BleActivity extends AppCompatActivity implements DeviceListInterfac
         initialisation();
         accessOtherClass();
         setListeners();
+
     }
 
     class WifiReceiver extends BroadcastReceiver {
@@ -272,7 +272,7 @@ public class BleActivity extends AppCompatActivity implements DeviceListInterfac
         deviceListInterface = this;
         connectPosition = (ConnectPosition) this;
         requestPermission = new RequestPermission(this);
-        bleUtil = new BleUtil(context);
+        bleUtil = new BleUtil(context,"summa");
         set_deviceList = new HashSet<String>();
         deviceArrayList = new ArrayList<>();
         bluetoothDeviceList = new ArrayList<BluetoothDevice>();
@@ -345,8 +345,6 @@ public class BleActivity extends AppCompatActivity implements DeviceListInterfac
         } catch (Exception e) {
             Log.e("Exception", "", e);
         }
-
-
     }
 
     @Override
@@ -964,7 +962,6 @@ public class BleActivity extends AppCompatActivity implements DeviceListInterfac
                 } else {
                     showToast("Please enter the Serial Number correctly");
                 }
-
             }
         });
         setSerialAlertDialog.show();

@@ -51,7 +51,7 @@
                     android:layout_marginTop="5dp"
                     android:textSize="16sp"
                     android:fontFamily="@font/lato"
-                    android:text="Enter Your 10 Digit V Safe UIN located in the V Safe as shown below."
+                    android:text="Enter Your 10 Digit V SAFE UIN located in the V SAFE as shown below."
                     android:textColor="@color/grey1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/mreg" />

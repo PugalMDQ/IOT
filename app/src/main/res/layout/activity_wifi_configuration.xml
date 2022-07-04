@@ -56,7 +56,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/lato"
-            android:text="Configure the wifi ssid and password to ensure your V Safe is connected to the Cloud and your Mobile."
+            android:text="Configure the wifi ssid and password to ensure your V SAFE is connected to the Cloud and your Mobile."
             android:textColor="@color/grey1"
             android:textSize="16sp"
             android:layout_marginEnd="16dp"
@@ -64,18 +64,37 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/OTPverify" />
 
+        <AutoCompleteTextView
+            android:id="@+id/wifiDropDown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/subText"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginTop="20dp"
+            android:hint="Choose wifi"
+            android:editable="false"
+            android:background="@drawable/email_back"
+            android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
+            android:drawablePadding="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="19dp"/>
+
         <TextView
             android:id="@+id/TextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/lato"
             android:text="Wifi SSID"
             android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/wifiDropDown" />
 
         <EditText
             android:id="@+id/WIFI_NAME"

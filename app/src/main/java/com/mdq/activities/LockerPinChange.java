@@ -21,7 +21,7 @@ public class LockerPinChange extends AppCompatActivity {
         activityLokerPinChangeBinding=ActivityLokerPinChangeBinding.inflate(getLayoutInflater());
         setContentView(activityLokerPinChangeBinding.getRoot());
 
-        bleUtil=new BleUtil(getApplicationContext());
+        bleUtil=new BleUtil(getApplicationContext(),"summa");
 
         setonclick();
 

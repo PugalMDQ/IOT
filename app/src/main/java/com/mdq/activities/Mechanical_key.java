@@ -19,7 +19,7 @@ public class Mechanical_key extends AppCompatActivity {
         activityMechanicalKeyBinding=ActivityMechanicalKeyBinding.inflate(getLayoutInflater());
         setContentView(activityMechanicalKeyBinding.getRoot());
 
-        bleUtil=new BleUtil(getApplicationContext());
+        bleUtil=new BleUtil(getApplicationContext(),"summa");
         setonclick();
 
     }

@@ -52,7 +52,7 @@
                     android:id="@+id/safe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="V Safe App"
+                    android:text="V SAFE App"
                     android:textColor="#807C7C"
                     android:fontFamily="@font/lato"
                     app:layout_constraintStart_toStartOf="parent"
